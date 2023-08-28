@@ -37,7 +37,7 @@ class AboutusController extends Controller
     }
     public function store(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
             // 'link'         => 'required',
             'title' => 'required',

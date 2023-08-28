@@ -15,7 +15,7 @@ use App\Http\Controllers\Api\ApiController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('/get_aboutus',		 			[ApiController::class, 'get_aboutus']);
+Route::get('/get_aboutus',		 			[ApiController::class, 'get_aboutus']);
 Route::get('/get_contactDetails',		 			[ApiController::class, 'get_contactDetails']);
 Route::get('/get_properties',		 			[ApiController::class, 'get_properties']);
 Route::get('/get_projects',		 			[ApiController::class, 'get_projects']);

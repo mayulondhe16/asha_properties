@@ -52,7 +52,7 @@ class ApiController extends Controller
         $all_data = Review::get();
 
         foreach ($all_data as $value) {
-          $value->image =  Config::get('DocumentConstant.Review_VIEW').$value['image'];
+          $value->image =  Config::get('DocumentConstant.REVIEW_VIEW').$value['image'];
         }
           return $this->responseApi($all_data, 'All data get successfully', 'scuccess',200);
         }catch (\Exception $e)
