@@ -29,13 +29,15 @@
               <form action="{{ url('/')}}/store_{{$url_slug}}" method="post" role="form" data-parsley-validate="parsley" enctype="multipart/form-data" autocomplete="off">
                 {!! csrf_field() !!} 
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="form-group">
                         <label for="oldpassword">Project Images<span style="color:red;" >*</span></label>
                         <div class="row">
-                          @foreach($images as $image)
+                          @foreach($images as $key=> $image)
                           <div class="col-md-4">
+                            {{ $key+1 }}
                             <p>
+                            
                               <img src="{{ Config::get('DocumentConstant.PROJECT_VIEW') }}{{$image->image}}" height="200px" width="300px"> 
                             </p>
                           </div>
@@ -197,7 +199,7 @@
                         </div> --}}
                     </div>
                 </div>
-                <div class="col-md-6">
+                {{-- <div class="col-md-6">
                   <div class="form-group">
                       <label for="oldpassword">Layout Images<span style="color:red;" >*</span></label>
                         <div class="row">
@@ -211,7 +213,7 @@
                         </div>
                           <input type="hidden" id="count" name="cnt">
                         </div>
-                  </div>
+                  </div> --}}
               </div>
               </div>
               <div class="box-footer">

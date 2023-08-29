@@ -179,7 +179,7 @@ class ProjectsController extends Controller
             'amenityname' => 'required',
             'images' => 'required',
             'image' => 'required',
-            'layout_images' => 'required',
+            // 'layout_images' => 'required',
 
 
         ]);

@@ -113,7 +113,7 @@
                   <div class="form-group">
                     <label class="form-label">Map Link</label><span style="color:red;" >*</span>
                       <div class="input-group input-group-outline mb-3">
-                        <input type="text" class="form-control" name="map_link"  data-parsley-error-message="Please enter valid link." required="true">
+                        <input type="text" class="form-control" name="map_link"  data-parsley-error-message="Please enter valid link." data-parsley-pattern="^((http|https):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$" required="true">
                       </div>
                   </div>
                 </div>
@@ -173,7 +173,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                {{-- <div class="col-md-6">
                   <div class="form-group">
                       <label for="oldpassword">Layout Images<span style="color:red;" >*</span></label>
                           <p>
@@ -184,7 +184,7 @@
                           <input type="hidden" id="count" name="cnt">
                         </div>
                   </div>
-              </div>
+              </div> --}}
               </div>
               <div class="box-footer">
                     <button type="submit" class="btn btn-primary" style="float: right">Submit</button>

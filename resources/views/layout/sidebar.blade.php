@@ -36,7 +36,7 @@
           </a>
         </li>
 
-        <li class="nav-item">
+        {{-- <li class="nav-item">
           <a class="nav-link text-white @if(Request::segment(1)=='manage_layouts' || Request::segment(1)=='add_layouts' || Request::segment(1)=='edit_layouts' || Request::segment(1)=='view_layouts') active @endif"  href="{{url('/')}}/manage_layouts">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">table_view</i>
@@ -44,7 +44,7 @@
             <span class="nav-link-text ms-1">Layouts</span>
           </a>
         </li>
-       
+        --}}
         <li class="nav-item">
           <a class="nav-link text-white @if(Request::segment(1)=='manage_aboutus' || Request::segment(1)=='add_aboutus' || Request::segment(1)=='edit_aboutus' || Request::segment(1)=='view_aboutus') active @endif" href="{{url('/')}}/manage_aboutus">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
