@@ -14,9 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->string('lat');
-            $table->string('long');
-            $table->string('city');
+            $table->string('map_link');
         });
     }
 
@@ -28,9 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->dropColumn('lat');
-            $table->dropColumn('long');
-            $table->dropColumn('city');
+            $table->dropColumn('map_link');
         });
     }
 };

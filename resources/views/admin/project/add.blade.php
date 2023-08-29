@@ -93,7 +93,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-4">
+                {{-- <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-label">Latitude</label><span style="color:red;" >*</span>
                       <div class="input-group input-group-outline mb-3">
@@ -108,12 +108,12 @@
                         <input type="text" class="form-control" name="long" data-parsley-pattern="^[0-9 .]+$"  data-parsley-error-message="Please enter valid longitude." required="true">
                       </div>
                   </div>
-                </div>
+                </div> --}}
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label class="form-label">City</label><span style="color:red;" >*</span>
+                    <label class="form-label">Map Link</label><span style="color:red;" >*</span>
                       <div class="input-group input-group-outline mb-3">
-                        <input type="text" class="form-control" name="city"  data-parsley-error-message="Please enter valid city." required="true">
+                        <input type="text" class="form-control" name="map_link"  data-parsley-error-message="Please enter valid link." required="true">
                       </div>
                   </div>
                 </div>

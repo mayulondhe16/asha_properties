@@ -96,6 +96,14 @@
                       </div>
                   </div>
                 </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="form-label">Map Link</label><span style="color:red;" >*</span>
+                      <div class="input-group input-group-outline mb-3">
+                        <input type="text" class="form-control" name="map_link"  data-parsley-error-message="Please enter valid area." required="true" value="{{ $data['map_link'] }}" readonly>
+                      </div>
+                  </div>
+                </div>
               </div>
               <div class="bg-gradient-primary shadow-primary border-radius-lg pt-2 pb-2 text-white text-capitalize ps-3" style="width:100%;float:left">
                Amenities

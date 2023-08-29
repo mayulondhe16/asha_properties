@@ -195,9 +195,10 @@ class ProjectsController extends Controller
         $project->area = $request->area;
         $project->plot_area = $request->plot_area;
         $project->available_plot = $request->available_plot;
-        $project->lat = $request->lat;
-        $project->long = $request->long;
-        $project->city = $request->city;
+        $project->map_link = $request->map_link;
+        // $project->lat = $request->lat;
+        // $project->long = $request->long;
+        // $project->city = $request->city;
     
         $status = $project->save();
         $last_id = $project->id;
