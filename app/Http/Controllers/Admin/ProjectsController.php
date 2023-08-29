@@ -193,6 +193,11 @@ class ProjectsController extends Controller
         $project->address = $request->address;
         $project->description = $request->description;
         $project->area = $request->area;
+        $project->plot_area = $request->plot_area;
+        $project->available_plot = $request->available_plot;
+        $project->lat = $request->lat;
+        $project->long = $request->long;
+        $project->city = $request->city;
     
         $status = $project->save();
         $last_id = $project->id;
@@ -228,18 +233,41 @@ class ProjectsController extends Controller
                     $aminity->aminity = $value;
                     $aminity_saved = $aminity->save();
 
+
+                    $amnlast_id = $aminity->id;
+                    $path = Config::get('DocumentConstant.AMENITYICON_ADD');
+            
+                    if ($request->hasFile('amenityicon_'.$key)) {
+            
+                        if ($aminity->amenityicon+$key) {
+                            $delete_file_eng= storage_path(Config::get('DocumentConstant.AMENITYICON_DELETE') . $aminity->amenityicon.$key);
+                            if(file_exists($delete_file_eng)){
+                                unlink($delete_file_eng);
+                            }
+            
+                        }
+            
+                        $fileName = $amnlast_id.".". $request->image->extension();
+                        uploadImage($request, 'image', $path, $fileName);
+                       
+                        $status = Amenities::find($amnlast_id);
+                        $status->amenityicon = $fileName;
+                        $status->save();
+
+                    }
+
                     foreach($amenity_collection as $colkey =>$collect){
          
                         $contains = Str::contains($colkey,$key);
                         if($contains=='true'){
-                            foreach($collect as $image)
+                            foreach($collect as $i=> $image)
                             {
                                     $aminityId = $aminity->id;
                                     $amenity_images =  new AmenityImages();
                                     $last_id = $amenity_images->id?$amenity_images->id:'1';
                                     $path = Config::get('DocumentConstant.AMENITY_ADD');
                                 
-                                    $fileName = $aminity->id."_".$key.".". $image->extension();
+                                    $fileName = $aminity->id."_".$i.".". $image->extension();
                                     uploadMultiImage($image, 'image', $path, $fileName);
                                 
                                     $amenity_images = new AmenityImages();
@@ -250,7 +278,6 @@ class ProjectsController extends Controller
                             }
                         }
                     }
-                }
             }
 
             $features = $request->input('featurename');
@@ -267,7 +294,7 @@ class ProjectsController extends Controller
          
                         $ftcontains = Str::contains($ftcolkey,$key);
                         if($ftcontains=='true'){
-                            foreach($ftcollect as $image)
+                            foreach($ftcollect as $f=> $image)
                             {
                                     $featuresId = $features->id;
                                     $feature_images =  new FeatureImages();
@@ -275,7 +302,7 @@ class ProjectsController extends Controller
                                     $path = Config::get('DocumentConstant.FEATURES_ADD');
 
                                 
-                                    $fileName = $features->id."_".$key.".". $image->extension();
+                                    $fileName = $features->id."_".$f.".". $image->extension();
                                     uploadMultiImage($image, 'image', $path, $fileName);
                                 
                                     $features_images = new FeatureImages();
@@ -291,13 +318,12 @@ class ProjectsController extends Controller
            
             $temp = [];
             if($images){
-                foreach ($images as $image)
+                foreach ($images as $pr=>$image)
                 {
                     $project_images =  new ProjectImages();
-                    $featuresId = $features->id;
                     $path = Config::get('DocumentConstant.PROJECT_ADD');
 
-                    $fileName = $features->id."_".$key.".". $image->extension();
+                    $fileName = $project->id."_".$pr.".". $image->extension();
                     uploadMultiImage($image, 'image', $path, $fileName);
                 
                     $project_images->project_id = $project->id;
@@ -309,12 +335,12 @@ class ProjectsController extends Controller
 
             $temp = [];
             if($layout_images){
-                foreach ($layout_images as $image)
+                foreach ($layout_images as $ly => $image)
                 {
                     $layout_images =  new LayoutImages();
                     $path = Config::get('DocumentConstant.LAYOUT_ADD');
 
-                    $fileName = $features->id."_".$key.".". $image->extension();
+                    $fileName = $project->id."_".$ly.".". $image->extension();
                     uploadMultiImage($image, 'image', $path, $fileName);
                 
                     $layout_images->project_id = $project->id;
@@ -333,6 +359,7 @@ class ProjectsController extends Controller
             return \Redirect::back();
         }
     }
+}
 
     public function edit($id)
     {

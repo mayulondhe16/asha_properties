@@ -80,6 +80,22 @@
                       </div>
                   </div>
                 </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="form-label">Plot Area</label><span style="color:red;" >*</span>
+                      <div class="input-group input-group-outline mb-3">
+                        <input type="text" class="form-control" name="area"  data-parsley-error-message="Please enter valid area." required="true" value="{{ $data['plot_area'] }}" readonly>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="form-label">Available Plots</label><span style="color:red;" >*</span>
+                      <div class="input-group input-group-outline mb-3">
+                        <input type="text" class="form-control" name="area"  data-parsley-error-message="Please enter valid area." required="true" value="{{ $data['available_plot'] }}" readonly>
+                      </div>
+                  </div>
+                </div>
               </div>
               <div class="bg-gradient-primary shadow-primary border-radius-lg pt-2 pb-2 text-white text-capitalize ps-3" style="width:100%;float:left">
                Amenities
@@ -90,6 +106,7 @@
                     <thead>
                       <tr>
                         <th>Amenity</th>
+                        <th>Icon</th>
                         <th>Images</th>
                       </tr>
                     </thead>
@@ -104,6 +121,11 @@
                             <input type="text" class="form-control" value="{{$amenity->aminity}}" readonly>
                             </div>
                         </td>
+                        <td>
+                          <div class="input-group input-group-outline mb-3">
+                            <img src="{{ Config::get('DocumentConstant.AMENITYICON_VIEW') }}{{ $amenity->amenityicon }}" height="20px" width="30px"> 
+                          </div>
+                      </td>
                         @foreach ( $amenity_images as $am )
                         <td>
                           <img src="{{ Config::get('DocumentConstant.AMENITY_VIEW') }}{{ $am->images }}" height="20px" width="30px"> 

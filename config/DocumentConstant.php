@@ -43,6 +43,10 @@ return [
     'REVIEW_DELETE'	            => '/all_web_data/images/review/',
     'REVIEW_VIEW'	            => env("DOC_URL").'/storage/all_web_data/images/review/',
 
+    'AMENITYICON_ADD'	            => "/all_web_data/images/amenityicon/",
+    'AMENITYICON_DELETE'	        => '/all_web_data/images/amenityicon/',
+    'AMENITYICON_VIEW'	            => env("DOC_URL").'/storage/all_web_data/images/amenityicon/',
+
 
     
 

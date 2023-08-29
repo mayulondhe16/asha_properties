@@ -65,11 +65,55 @@
                       </div>
                   </div>
                 </div>
+              </div>
+              <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label class="form-label">Area</label><span style="color:red;" >*</span>
+                    <label class="form-label">Total Area</label><span style="color:red;" >*</span>
                       <div class="input-group input-group-outline mb-3">
                         <input type="text" class="form-control" name="area"  data-parsley-error-message="Please enter valid area." required="true">
+                      </div>
+                  </div>
+                </div>
+                 <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="form-label">Plot Area</label><span style="color:red;" >*</span>
+                      <div class="input-group input-group-outline mb-3">
+                        <input type="text" class="form-control" name="plot_area"  data-parsley-error-message="Please enter valid plot area." required="true">
+                      </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="form-label">Available Plots</label><span style="color:red;" >*</span>
+                      <div class="input-group input-group-outline mb-3">
+                        <input type="text" class="form-control" name="available_plot"  data-parsley-error-message="Please enter valid available plots." required="true">
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="form-label">Latitude</label><span style="color:red;" >*</span>
+                      <div class="input-group input-group-outline mb-3">
+                        <input type="text" class="form-control" name="lat"  data-parsley-pattern="^[0-9 .]+$" data-parsley-error-message="Please enter valid latitude." required="true">
+                      </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="form-label">Longitude</label><span style="color:red;" >*</span>
+                      <div class="input-group input-group-outline mb-3">
+                        <input type="text" class="form-control" name="long" data-parsley-pattern="^[0-9 .]+$"  data-parsley-error-message="Please enter valid longitude." required="true">
+                      </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="form-label">City</label><span style="color:red;" >*</span>
+                      <div class="input-group input-group-outline mb-3">
+                        <input type="text" class="form-control" name="city"  data-parsley-error-message="Please enter valid city." required="true">
                       </div>
                   </div>
                 </div>
@@ -83,6 +127,7 @@
                     <thead>
                       <tr>
                         <th>Amenity</th>
+                        <th>Icon</th>
                         <th>Images</th>
                         <th>Action</th>
                       </tr>
@@ -167,11 +212,21 @@
     const cell1 = newRow.insertCell(0);
     const cell2 = newRow.insertCell(1);
     const cell3 = newRow.insertCell(2);
+    const cell4 = newRow.insertCell(3);
 
     // Add content to the new cells (you can customize this part as needed)
     cell1.innerHTML = '<div class="input-group input-group-outline mb-3"><input type="text" placeholder="Enter Value" name="'+field+'name[]" class="form-control"></div>';
-    cell2.innerHTML = '<div class="input-group input-group-outline mb-3"><input type="file"  name="'+field+'images_'+index+'[]" accept="image/*" multiple></div>';
-    cell3.innerHTML = '<a class="btn btn-danger" onclick="deleteRow(this,'+id+')">Remove</a>';
+    if(field=='amenity')
+    {
+      cell2.innerHTML = '<div class="input-group input-group-outline mb-3"><input type="file"  name="'+field+'icon_'+index+'" accept="image/*"></div>';
+      cell3.innerHTML = '<div class="input-group input-group-outline mb-3"><input type="file"  name="'+field+'images_'+index+'[]" accept="image/*" multiple></div>';
+      cell4.innerHTML = '<a class="btn btn-danger" onclick="deleteRow(this,'+id+')">Remove</a>';
+    }else{
+      cell2.innerHTML = '<div class="input-group input-group-outline mb-3"><input type="file"  name="'+field+'images_'+index+'[]" accept="image/*" multiple></div>';
+      cell3.innerHTML = '<a class="btn btn-danger" onclick="deleteRow(this,'+id+')">Remove</a>';
+
+    }
+  
   }
 
   function deleteRow(button,id)

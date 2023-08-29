@@ -67,9 +67,9 @@ class ApiController extends Controller
       {
         $all_data = Amenities::where('project_id',$id)->get();
 
-        // foreach ($all_data as $value) {
-        //   $value->image =  Config::get('DocumentConstant.Review_VIEW').$value['image'];
-        // }
+        foreach ($all_data as $value) {
+          $value->amenityicon =  Config::get('DocumentConstant.AMENITYICON_VIEW').$value['amenityicon'];
+        }
           return $this->responseApi($all_data, 'All data get successfully', 'scuccess',200);
         }catch (\Exception $e)
       {
@@ -134,6 +134,8 @@ class ApiController extends Controller
       try
       {
           $temp                      = [];
+          $amenities = [];
+          $features = [];
           $projectData = Projects::get();
           foreach($projectData as $key=>$value)
           {
@@ -142,23 +144,49 @@ class ApiController extends Controller
                 $response['address'] = $value->address;
                 $response['description'] = $value->description;
                 $response['area'] = $value->area;
-                $response['main_layout_image'] = $value->main_layout_image;
+                $response['plot_area'] = $value->plot_area;
+                $response['available_plot'] = $value->available_plot;
+                $response['lat'] = $value->lat;
+                $response['long'] = $value->long;
+                $response['city'] = $value->city;
+                $response['main_layout_image'] =  Config::get('DocumentConstant.MAIN_LAYOUT_VIEW').$value->main_layout_image;
                 $response['status'] = $value->status;
-                $response['project_images'] = ProjectImages::where('project_id',$value->id)->get();
-                $response['layout_images'] = LayoutImages::where('project_id',$value->id)->get();
+                $project_images = ProjectImages::where('project_id',$value->id)->get();
+                foreach ($project_images as $pr)
+                {
+                    $pr->image =  Config::get('DocumentConstant.PROJECT_VIEW').$pr['image'];
+                } 
+                $response['project_images'] = $project_images;
+                $layout_images = LayoutImages::where('project_id',$value->id)->get();
+                foreach ($layout_images as $ly)
+                {
+                    $ly->images =  Config::get('DocumentConstant.LAYOUT_VIEW').$ly['images'];
+                } 
+                $response['layout_images'] = $layout_images;
                 $amt_data = Amenities::where('project_id',$value->id)->get();
                 foreach($amt_data as $amt){
-                  $amenities = [];
+                
                   $amenities['aminity'] = $amt->aminity;
-                  $amenities['amenitiy_images'] = AmenityImages::where('project_id',$value->id)->get();
+                  $amenitiy_images = AmenityImages::where('project_id',$value->id)->get();
+                    foreach ($amenitiy_images as $am)
+                    {
+                        $am->images =  Config::get('DocumentConstant.AMENITY_VIEW').$am['images'];
+                    } 
+                      $amenities['amenitiy_images'] = $amenitiy_images;
+
                 }
                 $response['amenities'] = $amenities;
 
                 $ftr_data = Features::where('project_id',$value->id)->get();
                 foreach($ftr_data as $amt){
-                  $features = [];
+
                   $features['feature'] = $amt->feature;
-                  $features['feature_images'] = FeatureImages::where('project_id',$value->id)->get();
+                  $features_images = FeatureImages::where('project_id',$value->id)->get();
+                  foreach ($features_images as $ft)
+                    {
+                        $ft->images =  Config::get('DocumentConstant.FEATURES_VIEW').$ft['images'];
+                    } 
+                  $features['feature_images'] = $features_images;
                 }
                 $response['features'] = $features;
                 array_push($temp, $response); 
@@ -176,6 +204,8 @@ class ApiController extends Controller
       try
       {
           $temp                      = [];
+          $amenities = [];
+          $features = [];
           $projectData = Projects::where('projects.status','1')->get();
           foreach($projectData as $key=>$value)
           {
@@ -184,23 +214,49 @@ class ApiController extends Controller
                 $response['address'] = $value->address;
                 $response['description'] = $value->description;
                 $response['area'] = $value->area;
-                $response['main_layout_image'] = $value->main_layout_image;
+                $response['plot_area'] = $value->plot_area;
+                $response['available_plot'] = $value->available_plot;
+                $response['lat'] = $value->lat;
+                $response['long'] = $value->long;
+                $response['city'] = $value->city;
+                $response['main_layout_image'] =  Config::get('DocumentConstant.MAIN_LAYOUT_VIEW').$value->main_layout_image;
                 $response['status'] = $value->status;
-                $response['project_images'] = ProjectImages::where('project_id',$value->id)->get();
-                $response['layout_images'] = LayoutImages::where('project_id',$value->id)->get();
+                $project_images = ProjectImages::where('project_id',$value->id)->get();
+                foreach ($project_images as $pr)
+                {
+                    $pr->image =  Config::get('DocumentConstant.PROJECT_VIEW').$pr['image'];
+                } 
+                $response['project_images'] = $project_images;
+                $layout_images = LayoutImages::where('project_id',$value->id)->get();
+                foreach ($layout_images as $ly)
+                {
+                    $ly->images =  Config::get('DocumentConstant.LAYOUT_VIEW').$ly['images'];
+                } 
+                $response['layout_images'] = $layout_images;
                 $amt_data = Amenities::where('project_id',$value->id)->get();
                 foreach($amt_data as $amt){
-                  $amenities = [];
+                
                   $amenities['aminity'] = $amt->aminity;
-                  $amenities['amenitiy_images'] = AmenityImages::where('project_id',$value->id)->get();
+                  $amenitiy_images = AmenityImages::where('project_id',$value->id)->get();
+                    foreach ($amenitiy_images as $am)
+                    {
+                        $am->images =  Config::get('DocumentConstant.AMENITY_VIEW').$am['images'];
+                    } 
+                      $amenities['amenitiy_images'] = $amenitiy_images;
+
                 }
                 $response['amenities'] = $amenities;
 
                 $ftr_data = Features::where('project_id',$value->id)->get();
                 foreach($ftr_data as $amt){
-                  $features = [];
+
                   $features['feature'] = $amt->feature;
-                  $features['feature_images'] = FeatureImages::where('project_id',$value->id)->get();
+                  $features_images = FeatureImages::where('project_id',$value->id)->get();
+                  foreach ($features_images as $ft)
+                    {
+                        $ft->images =  Config::get('DocumentConstant.FEATURES_VIEW').$ft['images'];
+                    } 
+                  $features['feature_images'] = $features_images;
                 }
                 $response['features'] = $features;
                 array_push($temp, $response); 
@@ -218,6 +274,8 @@ class ApiController extends Controller
       try
       {
           $temp                      = [];
+          $amenities = [];
+          $features = [];
           $projectData = Projects::where('projects.status','0')->get();
           foreach($projectData as $key=>$value)
           {
@@ -226,23 +284,49 @@ class ApiController extends Controller
                 $response['address'] = $value->address;
                 $response['description'] = $value->description;
                 $response['area'] = $value->area;
-                $response['main_layout_image'] = $value->main_layout_image;
+                $response['plot_area'] = $value->plot_area;
+                $response['available_plot'] = $value->available_plot;
+                $response['lat'] = $value->lat;
+                $response['long'] = $value->long;
+                $response['city'] = $value->city;
+                $response['main_layout_image'] =  Config::get('DocumentConstant.MAIN_LAYOUT_VIEW').$value->main_layout_image;
                 $response['status'] = $value->status;
-                $response['project_images'] = ProjectImages::where('project_id',$value->id)->get();
-                $response['layout_images'] = LayoutImages::where('project_id',$value->id)->get();
+                $project_images = ProjectImages::where('project_id',$value->id)->get();
+                foreach ($project_images as $pr)
+                {
+                    $pr->image =  Config::get('DocumentConstant.PROJECT_VIEW').$pr['image'];
+                } 
+                $response['project_images'] = $project_images;
+                $layout_images = LayoutImages::where('project_id',$value->id)->get();
+                foreach ($layout_images as $ly)
+                {
+                    $ly->images =  Config::get('DocumentConstant.LAYOUT_VIEW').$ly['images'];
+                } 
+                $response['layout_images'] = $layout_images;
                 $amt_data = Amenities::where('project_id',$value->id)->get();
                 foreach($amt_data as $amt){
-                  $amenities = [];
+                
                   $amenities['aminity'] = $amt->aminity;
-                  $amenities['amenitiy_images'] = AmenityImages::where('project_id',$value->id)->get();
+                  $amenitiy_images = AmenityImages::where('project_id',$value->id)->get();
+                    foreach ($amenitiy_images as $am)
+                    {
+                        $am->images =  Config::get('DocumentConstant.AMENITY_VIEW').$am['images'];
+                    } 
+                      $amenities['amenitiy_images'] = $amenitiy_images;
+
                 }
                 $response['amenities'] = $amenities;
 
                 $ftr_data = Features::where('project_id',$value->id)->get();
                 foreach($ftr_data as $amt){
-                  $features = [];
+
                   $features['feature'] = $amt->feature;
-                  $features['feature_images'] = FeatureImages::where('project_id',$value->id)->get();
+                  $features_images = FeatureImages::where('project_id',$value->id)->get();
+                  foreach ($features_images as $ft)
+                    {
+                        $ft->images =  Config::get('DocumentConstant.FEATURES_VIEW').$ft['images'];
+                    } 
+                  $features['feature_images'] = $features_images;
                 }
                 $response['features'] = $features;
                 array_push($temp, $response); 
