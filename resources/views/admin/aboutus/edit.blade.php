@@ -38,7 +38,7 @@
                                     <img src="{{ Config::get('DocumentConstant.ABOUTUS_VIEW') }}{{$data['image']}}" height="200px" width="300px"> 
                                   </p>
                                   <div class="input-group input-group-outline mb-3">
-                                  <input type="file"  name="image" accept="image/*" required="true" id="output_image1">
+                                  <input type="file" id="image"  name="image" accept="image/*" required="true" id="output_image1">
                               </div>
                           </div>
                       </div>

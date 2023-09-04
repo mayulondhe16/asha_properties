@@ -31,9 +31,9 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="oldpassword">Project Images<span style="color:red;" >*</span></label>
-                            <p>
+                            {{-- <p>
                             <img id="output_image1" height="200px" width="300px" src="{{asset('assets/img/top.jpeg')}}" />
-                            </p>
+                            </p> --}}
                             <div class="input-group input-group-outline mb-3">
                             <input type="file"  name="images[]" accept="image/*" required="true" multiple>
                         </div>
@@ -169,7 +169,7 @@
                             <img id="output_image1" height="200px" width="300px" src="{{asset('assets/img/top.jpeg')}}" />
                             </p>
                             <div class="input-group input-group-outline mb-3">
-                            <input type="file"  name="image" accept="image/*" required="true">
+                            <input type="file" id="image" name="image" accept="image/*" required="true">
                         </div>
                     </div>
                 </div>

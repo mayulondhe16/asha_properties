@@ -77,7 +77,36 @@
                             </div>
                         </div>
                     </div>
-                  
+                    <div class="row">
+                      <div class="col-md-8">
+                          <div class="form-group">
+                            <label class="form-label">Total Area</label><span style="color:red;" >*</span>
+                              <div class="input-group input-group-outline mb-3">
+                                  <input type="text" class="form-control" readonly name="total_area" value="{{ $data['total_area'] }}" data-parsley-error-message="Please enter valid total area." data-parsley-pattern="^[a-z A-Z 0-9.]+$" required="true">
+                                </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                          <label class="form-label">Plot Area</label><span style="color:red;" >*</span>
+                            <div class="input-group input-group-outline mb-3">
+                                <input type="text" class="form-control" readonly name="plot_area" value="{{ $data['plot_area'] }}"  data-parsley-error-message="Please enter valid plot area." data-parsley-pattern="^[a-z A-Z 0-9 .]+$" required="true">
+                              </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-8">
+                      <div class="form-group">
+                        <label class="form-label">Location</label><span style="color:red;" >*</span>
+                          <div class="input-group input-group-outline mb-3">
+                              <textarea  class="form-control" readonly name="location"  data-parsley-error-message="Please enter valid location." data-parsley-pattern="^[a-z A-Z 0-9 .]+$" required="true">{{ $data['location'] }}</textarea>
+                            </div>
+                      </div>
+                  </div>
+              </div>
                     
                     {{-- <div class="text-center">
                       <button type="button" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Sign Up</button>
