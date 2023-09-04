@@ -39,9 +39,10 @@
                     <tr>
                       <th>Sr No</th>
                       <th>Name</th>
+                      <th>Mobile No</th>
                       <th>Email</th>
                       <th>Message</th>
-                      {{-- <th>Action</th> --}}
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -54,22 +55,20 @@
                           {{$value->name}}
                         </td>
                         <td>
+                          {{$value->mobile_no}}
+                        </td>
+                        <td>
                             {{$value->email}}
                           </td>
                           <td>
                             <textarea  class="form-control" name="description" data-parsley-error-message="Please enter valid category description." required="true">{{$value->message}}</textarea>
                         </td>
-                        {{-- <td>
-                          <a href="{{url('/')}}/edit_{{$url_slug}}/{{base64_encode($value->id)}}" title="Edit">
-                            <i class="fa fa-edit"></i>
-                          </a>
-                          <a href="{{url('/')}}/view_{{$url_slug}}/{{base64_encode($value->id)}}" title="View">
-                            <i class="fa fa-eye"></i>
-                          </a>
-                          <a href="{{url('/')}}/delete_{{$url_slug}}/{{base64_encode($value->id)}}" title="Delete" onclick="return confirm('Are you sure you want to delete this record?');">
+                        <td>
+                        
+                          <a href="{{url('/')}}/delete_getintouch/{{base64_encode($value->id)}}" title="Delete" onclick="return confirm('Are you sure you want to delete this record?');">
                             <i class="fa fa-trash"></i>
                           </a>
-                        </td> --}}
+                        </td>
                       </tr>
                     @endforeach
                   </tbody>

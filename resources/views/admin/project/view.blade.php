@@ -35,7 +35,7 @@
                         <div class="row">
                           @foreach($images as $key=> $image)
                           <div class="col-md-4">
-                            {{ $key+1 }}
+                            {{-- {{ $key+1 }} --}}
                             <p>
                             
                               <img src="{{ Config::get('DocumentConstant.PROJECT_VIEW') }}{{$image->image}}" height="200px" width="300px"> 

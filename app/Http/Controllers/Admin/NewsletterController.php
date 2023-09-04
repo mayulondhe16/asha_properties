@@ -107,14 +107,14 @@ class NewsletterController extends Controller
     //     }
     // }
 
-    // public function delete($id)
-    // {
-    //     $id = base64_decode($id);
-    //     $all_data=[];
-    //     $certificate = Quicklinks::find($id);
-    //     $certificate->delete();
-    //     return \Redirect::to('manage_quicklinks');
-    // }
+    public function delete_getintouch($id)
+    {
+        $id = base64_decode($id);
+        $all_data=[];
+        $certificate = ContactForm::find($id);
+        $certificate->delete();
+        return \Redirect::to('manage_getintouch');
+    }
 
     // public function view($id)
     // {

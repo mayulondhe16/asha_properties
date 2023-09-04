@@ -351,6 +351,7 @@ class ApiController extends Controller
         $validator = Validator::make($request->all(), [
             'name'=>'required',
             'email'=>'required',
+            'mobile_no'=>'required',
             'message'=>'required',
             ]);
         
@@ -361,6 +362,7 @@ class ApiController extends Controller
             }else{
                     $alumini = new ContactForm();
                     $alumini->name = $request->name;
+                    $alumini->mobile_no = $request->mobile_no;
                     $alumini->email = $request->email;
                     $alumini->message = $request->message;
                     $alumini->save();

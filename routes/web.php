@@ -113,6 +113,7 @@ Route::group(['middleware' => 'admin'], function ()
 	Route::get('/delete_counts/{id}',		 		[CountController::class, 'delete']);
 
 	Route::get('/manage_getintouch',		 			[NewsletterController::class, 'manage_getintouch']);
+	Route::get('/delete_getintouch/{id}',		 			[NewsletterController::class, 'delete_getintouch']);
 
 	
 });
