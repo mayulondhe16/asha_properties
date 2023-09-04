@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\FeaturesController;
 use App\Http\Controllers\Admin\AminitiesController;
 use App\Http\Controllers\Admin\CompanyContactController;
 use App\Http\Controllers\Admin\ReviewController;
+use App\Http\Controllers\Admin\CountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -102,6 +103,14 @@ Route::group(['middleware' => 'admin'], function ()
 	Route::get('/add_sub_layouts/{id}',		 		[ProjectsController::class, 'add_sublayouts']);
 	Route::post('/store_sublayouts',		 	    [ProjectsController::class, 'store_sublayouts']);
 
+
+	Route::get('/manage_counts',		 			[CountController::class, 'index']);
+	Route::get('/add_counts',		 				[CountController::class, 'add']);
+	Route::post('/store_counts',		 			[CountController::class, 'store']);
+	Route::get('/view_counts/{id}',	 			[CountController::class, 'view']);
+	Route::get('/edit_counts/{id}',		 		[CountController::class, 'edit']);
+	Route::post('/update_counts/{id}',		 	[CountController::class, 'update']);
+	Route::get('/delete_counts/{id}',		 		[CountController::class, 'delete']);
 });
 Route::get('/foo', function () {
     Artisan::call('storage:link');

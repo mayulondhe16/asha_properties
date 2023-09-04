@@ -19,6 +19,7 @@ use  App\Models\SubLayoutImages;
 use  App\Models\ContactForm;
 use  App\Models\Socialmedialinks;
 use  App\Models\Review;
+use  App\Models\Count;
 use Validator;
 use Session;
 use Config;
@@ -370,11 +371,10 @@ class ApiController extends Controller
     public function get_counts(Request $request)
     {
       try{
-        $ongoing_projects = Projects::where('status','0')->count();
-        $done_projects = Projects::where('status','1')->count();
-        $total_projects = Projects::count();
+        $total_counts = Count::get();
+    
         $response = [];
-        return response()->json(['ongoing_projects'=>$ongoing_projects,'done_projects'=>$done_projects,'total_projects'=>$total_projects,'status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);
+        return response()->json(['counts'=>$total_counts,'status' => 'Success', 'message' => 'Added successfully','StatusCode'=>'200']);
       }catch (\Exception $e)
       {
         return $this->responseApi(array(), $e->getMessage(), 'error',500);
