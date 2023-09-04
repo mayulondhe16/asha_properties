@@ -111,6 +111,10 @@ Route::group(['middleware' => 'admin'], function ()
 	Route::get('/edit_counts/{id}',		 		[CountController::class, 'edit']);
 	Route::post('/update_counts/{id}',		 	[CountController::class, 'update']);
 	Route::get('/delete_counts/{id}',		 		[CountController::class, 'delete']);
+
+	Route::get('/manage_getintouch',		 			[NewsletterController::class, 'manage_getintouch']);
+
+	
 });
 Route::get('/foo', function () {
     Artisan::call('storage:link');

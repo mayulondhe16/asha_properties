@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use  App\Models\Newsletter;
+use  App\Models\ContactForm;
 use Validator;
 use Session;
 
@@ -27,6 +28,17 @@ class NewsletterController extends Controller
         $data['url_slug']  = $this->url_slug;
         $data['title']     = $this->title;
         return view($this->folder_path.'index',$data);
+    }
+
+    public function manage_getintouch(Request $request)
+    {
+        $getintouch = ContactForm::get();
+
+        $data['data']      = $getintouch;
+        $data['page_name'] = "Manage";
+        $data['url_slug']  = $this->url_slug;
+        $data['title']     = 'Get In Touch';
+        return view($this->folder_path.'get_in_touch',$data);
     }
     // public function add()
     // {
