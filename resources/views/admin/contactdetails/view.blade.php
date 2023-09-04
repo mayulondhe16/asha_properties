@@ -41,7 +41,16 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="row">
+                      <div class="col-md-8">
+                          <div class="form-group">
+                            <label class="form-label">Email</label><span style="color:red;" >*</span>
+                              <div class="input-group input-group-outline mb-3">
+                                <input type="email" required class="form-control" readonly value="{{ $data['email'] }}" name="email" required data-parsley-error-message="Please enter valid email.">
+                              </div>
+                          </div>
+                      </div>
+                  </div>
                     <div class="row">
                         <div class="col-md-8">
                             <div class="form-group">
