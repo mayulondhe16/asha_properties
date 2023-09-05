@@ -32,7 +32,7 @@ class NewsletterController extends Controller
 
     public function manage_getintouch(Request $request)
     {
-        $getintouch = ContactForm::get();
+        $getintouch = ContactForm::orderBy('id','DESC')->get();
 
         $data['data']      = $getintouch;
         $data['page_name'] = "Manage";
