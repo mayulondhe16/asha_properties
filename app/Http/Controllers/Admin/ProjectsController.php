@@ -151,7 +151,7 @@ class ProjectsController extends Controller
     }
     public function store(Request $request)
     {  
-        dd($request->all());
+        // dd($request->all());
         $temp=[];
         $new_arr = [];
         $images = $request->file('images');
@@ -164,7 +164,7 @@ class ProjectsController extends Controller
                 return true;
             }
         })->toArray();
-
+        dd($amenity_collection);
         $feature_collection =  collect($request->all())->reject(function($item, $key){
             if (strpos($key,'featureimages_') !== false) {
                 return false;
