@@ -164,7 +164,7 @@ class ProjectsController extends Controller
                 return true;
             }
         })->toArray();
-        dd($amenity_collection);
+        // dd($amenity_collection);
         $feature_collection =  collect($request->all())->reject(function($item, $key){
             if (strpos($key,'featureimages_') !== false) {
                 return false;
@@ -202,6 +202,7 @@ class ProjectsController extends Controller
         // $project->city = $request->city;
     
         $status = $project->save();
+        dd($status);
         $last_id = $project->id;
         $path = Config::get('DocumentConstant.MAIN_LAYOUT_ADD');
 
