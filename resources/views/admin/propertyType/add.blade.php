@@ -90,7 +90,7 @@
                       <div class="form-group">
                         <label class="form-label">Location</label><span style="color:red;" >*</span>
                           <div class="input-group input-group-outline mb-3">
-                              <textarea  class="form-control" name="location"  data-parsley-error-message="Please enter valid location." data-parsley-pattern="^[a-z A-Z 0-9 .]+$" required="true"></textarea>
+                              <textarea  class="form-control" name="location"  data-parsley-error-message="Please enter valid location." required="true"></textarea>
                             </div>
                       </div>
                   </div>
