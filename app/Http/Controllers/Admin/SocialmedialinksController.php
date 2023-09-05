@@ -48,6 +48,7 @@ class SocialmedialinksController extends Controller
             return $validator->errors()->all();
         }
         $socialmedialinks = new Socialmedialinks();
+        $socialmedialinks->title = $request->title;
         $socialmedialinks->link = $request->link;
         $status = $socialmedialinks->save();
         $last_id = $socialmedialinks->id;
@@ -127,6 +128,8 @@ class SocialmedialinksController extends Controller
         }
         $existingRecord = Socialmedialinks::orderBy('id','DESC')->first();
         $socialmedialinks->link = $request->link;
+        $socialmedialinks->title = $request->title;
+
         $status = $socialmedialinks->update();        
         if (!empty($status))
         {

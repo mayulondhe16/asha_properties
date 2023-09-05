@@ -31,6 +31,7 @@
                     <tr>
                       <th>Sr No</th>
                       <th>Links</th>
+                      <th>Title</th>
                       <th>Icon</th>
                       <th>Action</th>
                     </tr>
@@ -43,6 +44,9 @@
                         </td>
                         <td>
                           {{$value->link}}
+                        </td>
+                        <td>
+                          {{$value->title}}
                         </td>
                         <td>
                           <img src="{{ Config::get('DocumentConstant.SOCIALMEDIAICON_VIEW') }}{{ $value->image }}" height="50px" width="60px">

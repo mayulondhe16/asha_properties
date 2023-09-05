@@ -43,6 +43,16 @@
                     </div>
                     <div class="row">
                       <div class="col-md-8">
+                          <div class="form-group">
+                            <label class="form-label">Title</label><span style="color:red;" >*</span>
+                              <div class="input-group input-group-outline mb-3">
+                                  <input type="text" class="form-control" name="title" required value="{{ $data['title'] }}">
+                                </div>
+                          </div>
+                      </div>
+                  </div>
+                    <div class="row">
+                      <div class="col-md-8">
                         <div class="form-group">
                             <label for="oldpassword">Icon<span style="color:red;" >*</span></label>
                                <p>

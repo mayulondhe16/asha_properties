@@ -44,6 +44,16 @@
                     <div class="row">
                       <div class="col-md-8">
                           <div class="form-group">
+                            <label class="form-label">Title</label>
+                              <div class="input-group input-group-outline mb-3">
+                                  <input type="text" class="form-control" readonly name="title"  value="{{$data['title']}}">
+                                </div>
+                          </div>
+                      </div>
+                  </div>
+                    <div class="row">
+                      <div class="col-md-8">
+                          <div class="form-group">
                               <label for="oldpassword">Icon<span style="color:red;" >*</span></label>
                                  <p>
                                   <img src="{{ Config::get('DocumentConstant.SOCIALMEDIAICON_VIEW') }}{{ $data['image'] }}" height="200px" width="300px"> 
