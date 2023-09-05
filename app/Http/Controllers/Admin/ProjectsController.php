@@ -227,6 +227,24 @@ class ProjectsController extends Controller
 
         if (!empty($status))
         {
+            $temp = [];
+            if($images){
+                foreach ($images as $pr=>$image)
+                {
+                    $project_images =  new ProjectImages();
+                    $path = Config::get('DocumentConstant.PROJECT_ADD');
+
+                    $fileName = $project->id."_".$pr.".". $image->extension();
+                    uploadMultiImage($image, 'image', $path, $fileName);
+                
+                    $project_images->project_id = $project->id;
+                    $project_images->image = $fileName;
+                    $projectstatus = $project_images->save();
+                 
+                }
+            }
+
+            
             $amenities = $request->input('amenityname');
             if(count($amenities))
             {
@@ -254,9 +272,9 @@ class ProjectsController extends Controller
                         $fileName = $amnlast_id.".". $request->image->extension();
                         uploadImage($request, 'image', $path, $fileName);
                        
-                        $status = Amenities::find($amnlast_id);
-                        $status->amenityicon = $fileName;
-                        $status->save();
+                        $amtstatus = Amenities::find($amnlast_id);
+                        $amtstatus->amenityicon = $fileName;
+                        $amtstatus->save();
 
                     }
 
@@ -278,10 +296,11 @@ class ProjectsController extends Controller
                                     $amenity_images->project_id = $project->id;
                                     $amenity_images->aminity_id = $aminity->id;
                                     $amenity_images->images = $fileName;
-                                    $status = $amenity_images->save();    
+                                    $amtimgstatus = $amenity_images->save();    
                             }
                         }
                     }
+                }
             }
 
             $features = $request->input('featurename');
@@ -313,55 +332,37 @@ class ProjectsController extends Controller
                                     $features_images->project_id = $project->id;
                                     $features_images->feature_id = $features->id;
                                     $features_images->images = $fileName;
-                                    $status = $features_images->save();   
+                                    $ftrimgstatus = $features_images->save();   
                             }
                         }
                     }
                 }
             }
            
-            $temp = [];
-            if($images){
-                foreach ($images as $pr=>$image)
-                {
-                    $project_images =  new ProjectImages();
-                    $path = Config::get('DocumentConstant.PROJECT_ADD');
+            
+            // $temp = [];
+            // if($layout_images){
+            //     foreach ($layout_images as $ly => $image)
+            //     {
+            //         $layout_images =  new LayoutImages();
+            //         $path = Config::get('DocumentConstant.LAYOUT_ADD');
 
-                    $fileName = $project->id."_".$pr.".". $image->extension();
-                    uploadMultiImage($image, 'image', $path, $fileName);
+            //         $fileName = $project->id."_".$ly.".". $image->extension();
+            //         uploadMultiImage($image, 'image', $path, $fileName);
                 
-                    $project_images->project_id = $project->id;
-                    $project_images->image = $fileName;
-                    $projectstatus = $project_images->save();
+            //         $layout_images->project_id = $project->id;
+            //         $layout_images->images = $fileName;
+            //         $projectstatus = $layout_images->save();
                  
-                }
-            }
-
-            $temp = [];
-            if($layout_images){
-                foreach ($layout_images as $ly => $image)
-                {
-                    $layout_images =  new LayoutImages();
-                    $path = Config::get('DocumentConstant.LAYOUT_ADD');
-
-                    $fileName = $project->id."_".$ly.".". $image->extension();
-                    uploadMultiImage($image, 'image', $path, $fileName);
-                
-                    $layout_images->project_id = $project->id;
-                    $layout_images->images = $fileName;
-                    $projectstatus = $layout_images->save();
-                 
-                }
-            }
-
-            Session::flash('success', 'Success! Record added successfully.');
-            return \Redirect::to('manage_projects');
-        }
-        else
-        {
-            Session::flash('error', "Error! Oop's something went wrong.");
-            return \Redirect::back();
-        }
+            //     }
+            // }
+        
+        Session::flash('success', 'Success! Record added successfully.');
+        return \Redirect::to('manage_projects');
+    }else
+    {
+        Session::flash('error', "Error! Oop's something went wrong.");
+        return \Redirect::back();
     }
 }
 
