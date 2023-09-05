@@ -65,7 +65,7 @@
                         </td>
                         <td>
                         
-                          <a href="{{url('/')}}/delete_getintouch/{{base64_encode($value->id)}}" title="Delete" onclick="return confirm('Are you sure you want to delete this record?');">
+                          <a class="danger" href="{{url('/')}}/delete_getintouch/{{base64_encode($value->id)}}" title="Delete" onclick="return confirm('Are you sure you want to delete this record?');">
                             <i class="fa fa-trash"></i>
                           </a>
                         </td>

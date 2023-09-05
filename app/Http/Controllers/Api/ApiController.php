@@ -151,7 +151,7 @@ class ApiController extends Controller
                 // $response['lat'] = $value->lat;
                 // $response['long'] = $value->long;
                 // $response['city'] = $value->city;
-                $request['map_link'] = $value->map_link;
+                $response['map_link'] = $value->map_link;
                 $response['main_layout_image'] =  Config::get('DocumentConstant.MAIN_LAYOUT_VIEW').$value->main_layout_image;
                 $response['status'] = $value->status;
                 $project_images = ProjectImages::where('project_id',$value->id)->get();
@@ -223,7 +223,7 @@ class ApiController extends Controller
                 // $response['lat'] = $value->lat;
                 // $response['long'] = $value->long;
                 // $response['city'] = $value->city;
-                $request['map_link'] = $value->map_link;
+                $response['map_link'] = $value->map_link;
                 $response['main_layout_image'] =  Config::get('DocumentConstant.MAIN_LAYOUT_VIEW').$value->main_layout_image;
                 $response['status'] = $value->status;
                 $project_images = ProjectImages::where('project_id',$value->id)->get();
