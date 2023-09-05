@@ -222,7 +222,7 @@ class ProjectsController extends Controller
             $newstatus = Projects::find($last_id);
             $newstatus->main_layout_image = $fileName;
             $newstatus->save();
-            dd($newstatus);
+            // dd($newstatus);
         }
 
         if (!empty($status))
