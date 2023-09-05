@@ -72,7 +72,7 @@ class AboutusController extends Controller
             uploadImage($request, 'image', $path, $fileName);
            
             $brand = Aboutus::find($last_id);
-            $brand->image = $fileName;
+            $brand->image = 'No Image';
             $brand->save();
         }
         if (!empty($brand))
@@ -134,7 +134,7 @@ class AboutusController extends Controller
             uploadImage($request, 'image', $path, $fileName);
            
             $brand = Aboutus::find($id);
-            $brand->image = $fileName;
+            $brand->image = 'No Image';
             $brand->save();   
         } 
         if (!empty($status))

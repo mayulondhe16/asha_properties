@@ -30,7 +30,7 @@
             <div class="card-body">
               <form action="{{ url('/')}}/update_{{$url_slug}}/{{$data['id']}}" method="post" role="form" data-parsley-validate="parsley" enctype="multipart/form-data" autocomplete="off">
                 {!! csrf_field() !!}    
-                    <div class="row">
+                    {{-- <div class="row">
                     <div class="col-md-8">
                         <div class="form-group">
                             <label for="oldpassword">Image<span style="color:red;" >*</span></label>
@@ -39,7 +39,7 @@
                               </p>
                         </div>
                     </div>
-                    </div>
+                    </div> --}}
                     <div class="row">
                         <div class="col-md-8">
                             <div class="form-group">

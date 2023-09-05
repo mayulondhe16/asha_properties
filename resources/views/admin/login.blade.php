@@ -64,7 +64,7 @@
                     <div class="input-group input-group-outline mb-3">
                       <input type="password" name="password" class="form-control" id="passwordInput" data-parsley-errors-container="#element2" required="true">
                       <span style="border:1px solid #ddd;padding:0 2px;">
-                        <i id="eyeChangeId" class="fa fa-eye" onclick="eyeEnableOrDisable()"></i>
+                        <i id="eyeChangeId" class="fa fa-eye-slash" onclick="eyeEnableOrDisable()"></i>
                       </span>
                     </div>
                     <span id="element2"></span>

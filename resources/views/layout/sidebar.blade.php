@@ -69,14 +69,14 @@
             <span class="nav-link-text ms-1">Social Media Links</span>
           </a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
           <a class="nav-link text-white @if(Request::segment(1)=='manage_newsletter' || Request::segment(1)=='add_newsletter' || Request::segment(1)=='edit_newsletter' || Request::segment(1)=='view_newsletter') active @endif" href="{{url('/')}}/manage_newsletter">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">table_view</i>
             </div>
             <span class="nav-link-text ms-1">Newsletter List</span>
           </a>
-        </li>
+        </li> --}}
         <li class="nav-item">
           <a class="nav-link text-white @if(Request::segment(1)=='manage_review' || Request::segment(1)=='add_review' || Request::segment(1)=='edit_review' || Request::segment(1)=='view_review') active @endif" href="{{url('/')}}/manage_review">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">

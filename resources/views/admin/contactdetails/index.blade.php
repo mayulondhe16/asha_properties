@@ -52,7 +52,7 @@
                           {{$value->email}}
                         </td>
                         <td>
-                          {{$value->address}}
+                          <textarea  class="form-control" name="description" data-parsley-error-message="Please enter valid category description." required="true">{{$value->address}}</textarea>
                         </td>
                         <td>
                           <a class="success" href="{{url('/')}}/edit_{{$url_slug}}/{{base64_encode($value->id)}}" title="Edit">

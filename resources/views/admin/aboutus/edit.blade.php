@@ -30,7 +30,7 @@
             <div class="card-body">
               <form action="{{ url('/')}}/update_{{$url_slug}}/{{$data['id']}}" method="post" role="form" data-parsley-validate="parsley" enctype="multipart/form-data" autocomplete="off">
                 {!! csrf_field() !!}    
-                    <div class="row">
+                    {{-- <div class="row">
                       <div class="col-md-6">
                           <div class="form-group">
                               <label for="oldpassword">Image<span style="color:red;" >*</span></label>
@@ -38,17 +38,17 @@
                                     <img src="{{ Config::get('DocumentConstant.ABOUTUS_VIEW') }}{{$data['image']}}" height="200px" width="300px"> 
                                   </p>
                                   <div class="input-group input-group-outline mb-3">
-                                  <input type="file" id="image"  name="image" accept="image/*" required="true" id="output_image1">
+                                  <input type="file" id="image"  name="image" accept="image/*" @if(!isset($data['image'])) required="true" @endif id="output_image1">
                               </div>
                           </div>
                       </div>
-                    </div>
+                    </div> --}}
                     <div class="row">
                         <div class="col-md-8">
                             <div class="form-group">
                               <label class="form-label">Title</label><span style="color:red;" >*</span>
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="text" class="form-control" name="title"  value="{{$data['title']}}" data-parsley-error-message="Please enter valid title." data-parsley-pattern="^[a-z A-Z .]+$" required="true">
+                                    <input type="text" class="form-control" name="title"  value="{{$data['title']}}" data-parsley-error-message="Please enter valid title." required="true">
                                   </div>
                             </div>
                         </div>

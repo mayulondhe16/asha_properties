@@ -39,7 +39,7 @@
                   <thead>
                     <tr>
                       <th>Sr No</th>
-                      <th>Propert Type Image</th>
+                      <th>Property Type Image</th>
                       <th>Title </th>
                       <th>Description</th>
                       <th>Action</th>

@@ -48,7 +48,7 @@
                             <div class="form-group">
                               <label class="form-label">Title</label><span style="color:red;" >*</span>
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="text" class="form-control" name="title"  data-parsley-error-message="Please enter valid category  name." data-parsley-pattern="^[a-z A-Z .]+$" required="true">
+                                    <input type="text" class="form-control" name="title"  data-parsley-error-message="Please enter valid category  name." required="true">
                                   </div>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                             <div class="form-group">
                               <label class="form-label">Description</label><span style="color:red;" >*</span>
                                 <div class="input-group input-group-outline mb-3">
-                                    <textarea  class="form-control" name="description"  data-parsley-error-message="Please enter valid category description." data-parsley-pattern="^[a-z A-Z 0-9 .]+$" required="true"></textarea>
+                                    <textarea  class="form-control" name="description"  data-parsley-error-message="Please enter valid category description." required="true"></textarea>
                                   </div>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                           <div class="form-group">
                             <label class="form-label">Reviewer Name</label><span style="color:red;" >*</span>
                               <div class="input-group input-group-outline mb-3">
-                                  <input type="text" class="form-control" name="reviewer_name"  data-parsley-error-message="Please enter valid reviewer name." data-parsley-pattern="^[a-z A-Z.]+$" required="true">
+                                  <input type="text" class="form-control" name="reviewer_name"  data-parsley-error-message="Please enter valid reviewer name." required="true">
                                 </div>
                           </div>
                       </div>
