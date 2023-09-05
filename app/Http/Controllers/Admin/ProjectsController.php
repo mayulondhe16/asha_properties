@@ -202,7 +202,7 @@ class ProjectsController extends Controller
         // $project->city = $request->city;
     
         $status = $project->save();
-        dd($status);
+        // dd($status);
         $last_id = $project->id;
         $path = Config::get('DocumentConstant.MAIN_LAYOUT_ADD');
 
@@ -219,9 +219,10 @@ class ProjectsController extends Controller
             $fileName = $last_id.".". $request->image->extension();
             uploadImage($request, 'image', $path, $fileName);
            
-            $status = Projects::find($last_id);
-            $status->main_layout_image = $fileName;
-            $status->save();
+            $newstatus = Projects::find($last_id);
+            $newstatus->main_layout_image = $fileName;
+            $newstatus->save();
+            dd($newstatus);
         }
 
         if (!empty($status))
