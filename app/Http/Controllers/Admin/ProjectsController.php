@@ -151,6 +151,7 @@ class ProjectsController extends Controller
     }
     public function store(Request $request)
     {  
+        dd($request->all());
         $temp=[];
         $new_arr = [];
         $images = $request->file('images');
