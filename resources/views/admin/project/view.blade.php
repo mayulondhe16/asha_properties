@@ -29,25 +29,25 @@
               <form action="{{ url('/')}}/store_{{$url_slug}}" method="post" role="form" data-parsley-validate="parsley" enctype="multipart/form-data" autocomplete="off">
                 {!! csrf_field() !!} 
               <div class="row">
-                <div class="col-md-12">
+                @foreach($images as $key=> $image)
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label for="oldpassword">Project Images<span style="color:red;" >*</span></label>
-                        <div class="row">
-                          @foreach($images as $key=> $image)
-                          <div class="col-md-4">
-                            {{-- {{ $key+1 }} --}}
-                            <p>
-                            
-                              <img src="{{ Config::get('DocumentConstant.PROJECT_VIEW') }}{{$image->image}}" height="200px" width="300px"> 
-                            </p>
-                          </div>
-                          @endforeach
-                        </div>
-                            {{-- <div class="input-group input-group-outline mb-3">
-                            <input type="file"  name="images[]" accept="image/*" required="true" multiple>
-                        </div> --}}
+                      <div class="row">
+                        <div class="col-md-10">
+                          <label for="oldpassword">Project Image {{ $key+1 }}<span style="color:red;" >*</span></label>
+                      </div>
+                      <div class="col-md-2">
+                        <p><a href="{{url('/')}}/delete_project_image/{{ $image->id }}" title="Delete" onclick="return confirm('Are you sure you want to delete this record?');">
+                           <i class="fa fa-trash"></i></a>
+                        </p>
+                      </div>
+                      </div>
+                      <p>
+                        <img id="output_image1" height="200px" width="300px" src="{{ Config::get('DocumentConstant.PROJECT_VIEW') }}{{ $image->image }}" />
+                      </p>
                     </div>
                 </div>
+                @endforeach
               </div>
               <div class="row">
                 <div class="col-md-4">
@@ -136,11 +136,9 @@
                             <img src="{{ Config::get('DocumentConstant.AMENITYICON_VIEW') }}{{ $amenity->amenityicon }}" height="20px" width="30px"> 
                           </div>
                       </td>
-                        @foreach ( $amenity_images as $am )
                         <td>
-                          <img src="{{ Config::get('DocumentConstant.AMENITY_VIEW') }}{{ $am->images }}" height="20px" width="30px"> 
+                          <img src="{{ Config::get('DocumentConstant.AMENITY_VIEW') }}{{ $amenity->image }}" height="20px" width="30px"> 
                         </td>
-                        @endforeach
                       </tr>
                       @endforeach
                     </tbody>
@@ -158,25 +156,18 @@
                      <thead>
                        <tr>
                          <th>Feature</th>
-                         <th>Images</th>
                        </tr>
                      </thead>
                      <tbody>
                       @foreach($features as $feature)
-                      <?php
-                       $feature_images = \DB::table('feature_images')->where('feature_id','=',$feature->id)->get();
-                      ?>
+                 
                       <tr>
                         <td>
                           <div class="input-group input-group-outline mb-3">
                           <input type="text" class="form-control" value="{{$feature->feature}}" readonly>
                           </div>
                         </td>
-                        @foreach ($feature_images as $key=>$ft)
-                        <td>
-                          <img data-image-id="myImg{{$key}}" id="myImg{{$key}}" class="getSrc" src="{{ Config::get('DocumentConstant.FEATURES_VIEW') }}{{ $ft->images }}" height="20px" width="30px"> 
-                        </td>
-                        @endforeach
+                       
                       </tr>
                       @endforeach
                      </tbody>

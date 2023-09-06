@@ -69,6 +69,7 @@ class ApiController extends Controller
         $all_data = Amenities::where('project_id',$id)->get();
 
         foreach ($all_data as $value) {
+          $value->image =  Config::get('DocumentConstant.AMENITY_VIEW').$value['image'];
           $value->amenityicon =  Config::get('DocumentConstant.AMENITYICON_VIEW').$value['amenityicon'];
         }
           return $this->responseApi($all_data, 'All data get successfully', 'scuccess',200);

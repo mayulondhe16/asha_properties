@@ -151,27 +151,19 @@ class ProjectsController extends Controller
     }
     public function store(Request $request)
     {  
-        // dd($request->all());
         $temp=[];
         $new_arr = [];
         $images = $request->file('images');
         $layout_images = $request->file('layout_images');
         $main_layout_image = $request->file('main_layout_image');
         $amenity_collection =  collect($request->all())->reject(function($item, $key){
-            if (strpos($key,'amenityimages_') !== false) {
+            if (strpos($key,'amenityimage_') !== false) {
                 return false;
             } else {
                 return true;
             }
         })->toArray();
-        // dd($amenity_collection);
-        $feature_collection =  collect($request->all())->reject(function($item, $key){
-            if (strpos($key,'featureimages_') !== false) {
-                return false;
-            } else {
-                return true;
-            }
-        })->toArray();
+       
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'address' => 'required',
@@ -180,9 +172,6 @@ class ProjectsController extends Controller
             'amenityname' => 'required',
             'images' => 'required',
             'image' => 'required',
-            // 'layout_images' => 'required',
-
-
         ]);
 
         if ($validator->fails()) 
@@ -197,59 +186,18 @@ class ProjectsController extends Controller
         $project->plot_area = $request->plot_area;
         $project->available_plot = $request->available_plot;
         $project->map_link = $request->map_link;
-        // $project->lat = $request->lat;
-        // $project->long = $request->long;
-        // $project->city = $request->city;
-    
+      
         $status = $project->save();
-        // dd($status);
         $last_id = $project->id;
-        $path = Config::get('DocumentConstant.MAIN_LAYOUT_ADD');
-
-        if ($request->hasFile('image')) {
-
-            if ($project->image) {
-                $delete_file_eng= storage_path(Config::get('DocumentConstant.MAIN_LAYOUT_DELETE') . $project->image);
-                if(file_exists($delete_file_eng)){
-                    unlink($delete_file_eng);
-                }
-
-            }
-
-            $fileName = $last_id.".". $request->image->extension();
-            uploadImage($request, 'image', $path, $fileName);
-           
-            $newstatus = Projects::find($last_id);
-            $newstatus->main_layout_image = $fileName;
-            $newstatus->save();
-            // dd($newstatus);
-        }
-
         if (!empty($status))
         {
             $temp = [];
-            if($images){
-                foreach ($images as $pr=>$image)
-                {
-                    $project_images =  new ProjectImages();
-                    $path = Config::get('DocumentConstant.PROJECT_ADD');
-
-                    $fileName = $project->id."_".$pr.".". $image->extension();
-                    uploadMultiImage($image, 'image', $path, $fileName);
-                
-                    $project_images->project_id = $project->id;
-                    $project_images->image = $fileName;
-                    $projectstatus = $project_images->save();
-                 
-                }
-            }
-
-            
             $amenities = $request->input('amenityname');
             if(count($amenities))
             {
                 foreach($amenities as $key=>$value)
                 {
+                    // dd($key);
                     $aminity = new Amenities();
                     $aminity->project_id = $project->id;
                     $aminity->aminity = $value;
@@ -257,7 +205,7 @@ class ProjectsController extends Controller
 
 
                     $amnlast_id = $aminity->id;
-                    $path = Config::get('DocumentConstant.AMENITYICON_ADD');
+                    $pathamt = Config::get('DocumentConstant.AMENITYICON_ADD');
             
                     if ($request->hasFile('amenityicon_'.$key)) {
             
@@ -268,37 +216,33 @@ class ProjectsController extends Controller
                             }
             
                         }
-            
-                        $fileName = $amnlast_id.".". $request->image->extension();
-                        uploadImage($request, 'image', $path, $fileName);
-                       
+                        $amticon='amenityicon_'.$key;
+                        $fileNameamt = $amnlast_id."_icon.". $request->$amticon->extension();
+                        uploadImage($request, $amticon, $pathamt, $fileNameamt);
                         $amtstatus = Amenities::find($amnlast_id);
-                        $amtstatus->amenityicon = $fileName;
+                        $amtstatus->amenityicon = $fileNameamt;
                         $amtstatus->save();
 
                     }
+                    $pathnew =  Config::get('DocumentConstant.AMENITY_ADD');
 
-                    foreach($amenity_collection as $colkey =>$collect){
-         
-                        $contains = Str::contains($colkey,$key);
-                        if($contains=='true'){
-                            foreach($collect as $i=> $image)
-                            {
-                                    $aminityId = $aminity->id;
-                                    $amenity_images =  new AmenityImages();
-                                    $last_id = $amenity_images->id?$amenity_images->id:'1';
-                                    $path = Config::get('DocumentConstant.AMENITY_ADD');
-                                
-                                    $fileName = $aminity->id."_".$i.".". $image->extension();
-                                    uploadMultiImage($image, 'image', $path, $fileName);
-                                
-                                    $amenity_images = new AmenityImages();
-                                    $amenity_images->project_id = $project->id;
-                                    $amenity_images->aminity_id = $aminity->id;
-                                    $amenity_images->images = $fileName;
-                                    $amtimgstatus = $amenity_images->save();    
+                    if ($request->hasFile('amenityimage_'.$key)) {
+            
+                        if ($aminity->amenityicon+$key) {
+                            $delete_file_eng= storage_path(Config::get('DocumentConstant.AMENITY_DELETE') . $aminity->amenityicon.$key);
+                            if(file_exists($delete_file_eng)){
+                                unlink($delete_file_eng);
                             }
+            
                         }
+                        $amtimg='amenityimage_'.$key;
+                        $amenityImg = $amnlast_id."_image.". $request->$amtimg->extension();
+                        uploadImage($request,$amtimg, $pathnew, $amenityImg);
+                       
+                        $amtstatus = Amenities::find($amnlast_id);
+                        $amtstatus->image = $amenityImg;
+                        $amtstatus->save();
+
                     }
                 }
             }
@@ -312,51 +256,40 @@ class ProjectsController extends Controller
                     $features->project_id = $project->id;
                     $features->feature = $value;
                     $features_saved = $features->save();
-
-                    foreach($feature_collection as $ftcolkey =>$ftcollect){
-         
-                        $ftcontains = Str::contains($ftcolkey,$key);
-                        if($ftcontains=='true'){
-                            foreach($ftcollect as $f=> $image)
-                            {
-                                    $featuresId = $features->id;
-                                    $feature_images =  new FeatureImages();
-                                    $last_id = $feature_images->id?$feature_images->id:'1';
-                                    $path = Config::get('DocumentConstant.FEATURES_ADD');
-
-                                
-                                    $fileName = $features->id."_".$f.".". $image->extension();
-                                    uploadMultiImage($image, 'image', $path, $fileName);
-                                
-                                    $features_images = new FeatureImages();
-                                    $features_images->project_id = $project->id;
-                                    $features_images->feature_id = $features->id;
-                                    $features_images->images = $fileName;
-                                    $ftrimgstatus = $features_images->save();   
-                            }
-                        }
-                    }
                 }
             }
            
             
-            // $temp = [];
-            // if($layout_images){
-            //     foreach ($layout_images as $ly => $image)
-            //     {
-            //         $layout_images =  new LayoutImages();
-            //         $path = Config::get('DocumentConstant.LAYOUT_ADD');
+            $path = Config::get('DocumentConstant.MAIN_LAYOUT_ADD');
+                if ($request->hasFile('image')) {
+                    if ($project->image) {
+                        $delete_file_eng= storage_path(Config::get('DocumentConstant.MAIN_LAYOUT_DELETE') . $project->image);
+                        if(file_exists($delete_file_eng)){
+                            unlink($delete_file_eng);
+                        }
 
-            //         $fileName = $project->id."_".$ly.".". $image->extension();
-            //         uploadMultiImage($image, 'image', $path, $fileName);
+                    }
+                    $fileName = $last_id.".". $request->image->extension();
+                    uploadImage($request, 'image', $path, $fileName);
                 
-            //         $layout_images->project_id = $project->id;
-            //         $layout_images->images = $fileName;
-            //         $projectstatus = $layout_images->save();
+                    $newstatus = Projects::find($last_id);
+                    $newstatus->main_layout_image = $fileName;
+                    $newstatus->save();
+                }
+          if($images){
+                foreach ($images as $pr=>$image)
+                {
+                    $project_images =  new ProjectImages();
+                    $path = Config::get('DocumentConstant.PROJECT_ADD');
+                    $fileName = $project->id."_".$pr.".". $image->extension();
+                    uploadMultiImage($image, 'image', $path, $fileName);
+                    $project_images->project_id = $project->id;
+                    $project_images->image = $fileName;
+                    $projectstatus = $project_images->save();
                  
-            //     }
-            // }
-        
+                }
+            }
+
         Session::flash('success', 'Success! Record added successfully.');
         return \Redirect::to('manage_projects');
     }else
@@ -369,14 +302,172 @@ class ProjectsController extends Controller
     public function edit($id)
     {
         $id = base64_decode($id);
-        $arr_data = [];
         $data1     = Projects::find($id);
+        $project_images = ProjectImages::where('project_id','=',$id)->get();
+        $layout_images = LayoutImages::where('project_id','=',$id)->get();
+        $amenities = Amenities::where('project_id','=',$id)->get();
+        $features = Features::where('project_id','=',$id)->get();
+       
+        $data['images']      = $project_images;
+        $data['layout_images']      = $layout_images;
+        $data['amenities']      = $amenities;
+        $data['features']      = $features;
         $data['data']      = $data1;
         $data['page_name'] = "Edit";
         $data['url_slug']  = $this->url_slug;
         $data['title']     = $this->title;
         return view($this->folder_path.'edit',$data);
     }
+
+    public function update(Request $request)
+    {  
+        $temp=[];
+        $new_arr = [];
+        $images = $request->file('images');
+        $layout_images = $request->file('layout_images');
+        $main_layout_image = $request->file('main_layout_image');
+        $amenity_collection =  collect($request->all())->reject(function($item, $key){
+            if (strpos($key,'amenityimage_') !== false) {
+                return false;
+            } else {
+                return true;
+            }
+        })->toArray();
+       
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'address' => 'required',
+            'description' => 'required',
+            'area' => 'required',
+            'amenityname' => 'required',
+            'images' => 'required',
+            'image' => 'required',
+        ]);
+
+        if ($validator->fails()) 
+        {
+            return $validator->errors()->all();
+        }
+        $project = new Projects();
+        $project->name = $request->name;
+        $project->address = $request->address;
+        $project->description = $request->description;
+        $project->area = $request->area;
+        $project->plot_area = $request->plot_area;
+        $project->available_plot = $request->available_plot;
+        $project->map_link = $request->map_link;
+      
+        $status = $project->save();
+        $last_id = $project->id;
+        if (!empty($status))
+        {
+            $temp = [];
+            $amenities = $request->input('amenityname');
+            if(count($amenities))
+            {
+                foreach($amenities as $key=>$value)
+                {
+                    // dd($key);
+                    $aminity = new Amenities();
+                    $aminity->project_id = $project->id;
+                    $aminity->aminity = $value;
+                    $aminity_saved = $aminity->save();
+
+
+                    $amnlast_id = $aminity->id;
+                    $pathamt = Config::get('DocumentConstant.AMENITYICON_ADD');
+            
+                    if ($request->hasFile('amenityicon_'.$key)) {
+            
+                        if ($aminity->amenityicon+$key) {
+                            $delete_file_eng= storage_path(Config::get('DocumentConstant.AMENITYICON_DELETE') . $aminity->amenityicon.$key);
+                            if(file_exists($delete_file_eng)){
+                                unlink($delete_file_eng);
+                            }
+            
+                        }
+                        $amticon='amenityicon_'.$key;
+                        $fileNameamt = $amnlast_id."_icon.". $request->$amticon->extension();
+                        uploadImage($request, $amticon, $pathamt, $fileNameamt);
+                        $amtstatus = Amenities::find($amnlast_id);
+                        $amtstatus->amenityicon = $fileNameamt;
+                        $amtstatus->save();
+
+                    }
+                    $pathnew =  Config::get('DocumentConstant.AMENITY_ADD');
+
+                    if ($request->hasFile('amenityimage_'.$key)) {
+            
+                        if ($aminity->amenityicon+$key) {
+                            $delete_file_eng= storage_path(Config::get('DocumentConstant.AMENITY_DELETE') . $aminity->amenityicon.$key);
+                            if(file_exists($delete_file_eng)){
+                                unlink($delete_file_eng);
+                            }
+            
+                        }
+                        $amtimg='amenityimage_'.$key;
+                        $amenityImg = $amnlast_id."_image.". $request->$amtimg->extension();
+                        uploadImage($request,$amtimg, $pathnew, $amenityImg);
+                       
+                        $amtstatus = Amenities::find($amnlast_id);
+                        $amtstatus->image = $amenityImg;
+                        $amtstatus->save();
+
+                    }
+                }
+            }
+
+            $features = $request->input('featurename');
+            if(count($features))
+            {
+                foreach($features as $key=>$value)
+                {
+                    $features = new Features();
+                    $features->project_id = $project->id;
+                    $features->feature = $value;
+                    $features_saved = $features->save();
+                }
+            }
+           
+            
+            $path = Config::get('DocumentConstant.MAIN_LAYOUT_ADD');
+                if ($request->hasFile('image')) {
+                    if ($project->image) {
+                        $delete_file_eng= storage_path(Config::get('DocumentConstant.MAIN_LAYOUT_DELETE') . $project->image);
+                        if(file_exists($delete_file_eng)){
+                            unlink($delete_file_eng);
+                        }
+
+                    }
+                    $fileName = $last_id.".". $request->image->extension();
+                    uploadImage($request, 'image', $path, $fileName);
+                
+                    $newstatus = Projects::find($last_id);
+                    $newstatus->main_layout_image = $fileName;
+                    $newstatus->save();
+                }
+          if($images){
+                foreach ($images as $pr=>$image)
+                {
+                    $project_images =  new ProjectImages();
+                    $path = Config::get('DocumentConstant.PROJECT_ADD');
+                    $fileName = $project->id."_".$pr.".". $image->extension();
+                    uploadMultiImage($image, 'image', $path, $fileName);
+                    $project_images->project_id = $project->id;
+                    $project_images->image = $fileName;
+                    $projectstatus = $project_images->save();
+                 
+                }
+            }
+
+        Session::flash('success', 'Success! Record added successfully.');
+        return \Redirect::to('manage_projects');
+    }else
+    {
+        Session::flash('error', "Error! Oop's something went wrong.");
+        return \Redirect::back();
+    }
+}
     public function delete($id)
     {
         $id = base64_decode($id);
@@ -414,60 +505,12 @@ class ProjectsController extends Controller
         $data['layout_images']      = $layout_images;
         $data['amenities']      = $amenities;
         $data['features']      = $features;
-        // $data['amenity_images']      = $amenities_images;
-        // $data['feature_images']      = $features_images;
         $data['page_name'] = "View";
         $data['url_slug']  = $this->url_slug;
         $data['title']     = $this->title;
         return view($this->folder_path.'view',$data);
     }
 
-    public function manage_top_selling(Request $request)
-    {
-        $Project = Projects::get();
-
-        $data['data']      = $Project;
-        $data['page_name'] = "Manage";
-        $data['url_slug']  = $this->url_slug;
-        $data['title']     = 'Top Projects';
-        return view($this->folder_path.'manage_top_selling',$data);
-    }
-
-    public function change_topselling_status($id)
-    {
-        $data =  \DB::table('products')->where(['id'=>$id])->first();
-        if($data->topSelling=='1')
-        {
-            $category = \DB::table('products')->where(['id'=>$id])->update(['topSelling'=>'0']);
-            Session::flash('success', 'Success! Record deactivated successfully.');
-            
-        }
-        else
-        {
-            $category = \DB::table('products')->where(['id'=>$id])->update(['topSelling'=>'1']);
-            Session::flash('success', 'Success! Record activated successfully.');
-        }
-        return \Redirect::back();
-    }
-
-    public function change_toptrending_status($id)
-    {
-        // dd($id);
-        $data =  \DB::table('products')->where(['id'=>$id])->first();
-        //dd($data->is_active);
-        if($data->topTrending=='1')
-        {
-            $category = \DB::table('products')->where(['id'=>$id])->update(['topTrending'=>'0']);
-            Session::flash('success', 'Success! Record deactivated successfully.');
-            
-        }
-        else
-        {
-            $category = \DB::table('products')->where(['id'=>$id])->update(['topTrending'=>'1']);
-            Session::flash('success', 'Success! Record activated successfully.');
-        }
-        return \Redirect::back();
-    }
 
     public function change_status($id)
     {

@@ -52,14 +52,14 @@
                         <td>
                           @if($value['status']=='1')
                           <a class="btn btn-success btn-sm" href="{{url('/')}}/change_status/{{$value->id}}">Done</a>
-                          @else($value['status']=='0')
+                          @else
                             <a class="btn btn-danger btn-sm" href="{{url('/')}}/change_status/{{$value->id}}">Ongoing</a>
                           @endif
                         </td>
                         <td>
-                          {{-- <a href="{{url('/')}}/edit_{{$url_slug}}/{{base64_encode($value->id)}}" title="Edit">
+                          <a href="{{url('/')}}/edit_{{$url_slug}}/{{base64_encode($value->id)}}" title="Edit">
                             <i class="fa fa-edit"></i>
-                          </a> --}}
+                          </a>
                           <a class="success" href="{{url('/')}}/view_{{$url_slug}}/{{base64_encode($value->id)}}" title="View">
                             <i class="fa fa-eye"></i>
                           </a>

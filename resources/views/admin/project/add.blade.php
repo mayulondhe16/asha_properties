@@ -148,7 +148,6 @@
                      <thead>
                        <tr>
                          <th>Feature</th>
-                         <th>Images</th>
                          <th>Action</th>
                        </tr>
                      </thead>
@@ -219,11 +218,11 @@
     if(field=='amenity')
     {
       cell2.innerHTML = '<div class="input-group input-group-outline mb-3"><input type="file"  name="'+field+'icon_'+index+'" accept="image/*"></div>';
-      cell3.innerHTML = '<div class="input-group input-group-outline mb-3"><input type="file"  name="'+field+'images_'+index+'[]" accept="image/*" multiple></div>';
+      cell3.innerHTML = '<div class="input-group input-group-outline mb-3"><input type="file"  name="'+field+'image_'+index+'" accept="image/*"></div>';
       cell4.innerHTML = '<a class="btn btn-danger" onclick="deleteRow(this,'+id+')">Remove</a>';
     }else{
-      cell2.innerHTML = '<div class="input-group input-group-outline mb-3"><input type="file"  name="'+field+'images_'+index+'[]" accept="image/*" multiple></div>';
-      cell3.innerHTML = '<a class="btn btn-danger" onclick="deleteRow(this,'+id+')">Remove</a>';
+      // cell2.innerHTML = '<div class="input-group input-group-outline mb-3"><input type="file"  name="'+field+'images_'+index+'[]" accept="image/*" multiple></div>';
+      cell2.innerHTML = '<a class="btn btn-danger" onclick="deleteRow(this,'+id+')">Remove</a>';
 
     }
   

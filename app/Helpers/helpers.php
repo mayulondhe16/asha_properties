@@ -1,6 +1,6 @@
 <?php
 function uploadImage($request, $image_name, $path, $name) {
-
+// dd($image_name);
     if (!file_exists(storage_path().$path)) {
         File::makeDirectory(storage_path().'/'.$path,0777,true);
     }
