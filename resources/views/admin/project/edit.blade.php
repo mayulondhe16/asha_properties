@@ -132,21 +132,21 @@
                        <tr>
                          <td>
                              <div class="input-group input-group-outline mb-3">
-                             <input type="text" class="form-control" value="{{$amenity->aminity}}" name="amenity_name[]">
+                             <input type="text" class="form-control" value="{{$amenity->aminity}}" name="amenityname[]">
                              </div>
                          </td>
                          <td>
                              <p>
                               <img src="{{ Config::get('DocumentConstant.AMENITYICON_VIEW') }}{{ $amenity->amenityicon }}" height="40px" width="70px">
-                              <input type="file"  name="amenity_icon_{{$key}}" accept="image/*">
-                              <input type="hidden" value="{{$amenity->id}}" name="amenity_id">
+                              <input type="file"  name="amenity_icon[]" value="{{ $amenity->amenityicon }}" accept="image/*">
+                              <input type="hidden" value="{{$amenity->id}}" name="amenity_id[]">
                             </p>
                           
                        </td>
                      
                          <td>
                            <img src="{{ Config::get('DocumentConstant.AMENITY_VIEW') }}{{ $amenity->image }}" height="40px" width="50px"> 
-                            <input type="file"  name="amenity_image{{$key}}" accept="image/*" multiple>
+                            <input type="file"  name="amenity_image[]" accept="image/*" value="{{ $amenity->image }}">
                           </td>
                        
                        </tr>

@@ -359,61 +359,66 @@ class ProjectsController extends Controller
         $last_id = $project->id;
         if (!empty($status))
         {
-            // $temp = [];
-            // $amenities = $request->input('amenityname');
-            // if(count($amenities))
-            // {
-            //     foreach($amenities as $key=>$value)
-            //     {
-            //         // dd($key);
-            //         $aminity = new Amenities();
-            //         $aminity->project_id = $project->id;
-            //         $aminity->aminity = $value;
-            //         $aminity_saved = $aminity->save();
-
-
-            //         $amnlast_id = $aminity->id;
-            //         $pathamt = Config::get('DocumentConstant.AMENITYICON_ADD');
-            
-            //         if ($request->hasFile('amenityicon_'.$key)) {
-            
-            //             if ($aminity->amenityicon+$key) {
-            //                 $delete_file_eng= storage_path(Config::get('DocumentConstant.AMENITYICON_DELETE') . $aminity->amenityicon.$key);
-            //                 if(file_exists($delete_file_eng)){
-            //                     unlink($delete_file_eng);
-            //                 }
-            
-            //             }
-            //             $amticon='amenityicon_'.$key;
-            //             $fileNameamt = $amnlast_id."_icon.". $request->$amticon->extension();
-            //             uploadImage($request, $amticon, $pathamt, $fileNameamt);
-            //             $amtstatus = Amenities::find($amnlast_id);
-            //             $amtstatus->amenityicon = $fileNameamt;
-            //             $amtstatus->save();
-
-            //         }
-            //         $pathnew =  Config::get('DocumentConstant.AMENITY_ADD');
-
-            //         if ($request->hasFile('amenityimage_'.$key)) {
-            
-            //             if ($aminity->amenityicon+$key) {
-            //                 $delete_file_eng= storage_path(Config::get('DocumentConstant.AMENITY_DELETE') . $aminity->amenityicon.$key);
-            //                 if(file_exists($delete_file_eng)){
-            //                     unlink($delete_file_eng);
-            //                 }
-            
-            //             }
-            //             $amtimg='amenityimage_'.$key;
-            //             $amenityImg = $amnlast_id."_image.". $request->$amtimg->extension();
-            //             uploadImage($request,$amtimg, $pathnew, $amenityImg);
-                       
-            //             $amtstatus = Amenities::find($amnlast_id);
-            //             $amtstatus->image = $amenityImg;
-            //             $amtstatus->save();
-
-            //         }
-            //     }
-            // }
+            $temp = [];
+            $amenities = $request->input('amenityname');
+            if(count($amenities))
+            {
+                $amt_delete = Amenities::where('project_id',$id);
+                $amt_delete->delete();
+                if($amt_delete){
+                    foreach($amenities as $key=>$value)
+                    {
+                        // dd($key);
+                        $aminity = new Amenities();
+                        $aminity->project_id = $project->id;
+                        $aminity->aminity = $value;
+                        $aminity_saved = $aminity->save();
+    
+    
+                        $amnlast_id = $aminity->id;
+                        $pathamt = Config::get('DocumentConstant.AMENITYICON_ADD');
+                
+                        if ($request->hasFile('amenityicon_'.$key)) {
+                
+                            if ($aminity->amenityicon+$key) {
+                                $delete_file_eng= storage_path(Config::get('DocumentConstant.AMENITYICON_DELETE') . $aminity->amenityicon.$key);
+                                if(file_exists($delete_file_eng)){
+                                    unlink($delete_file_eng);
+                                }
+                
+                            }
+                            $amticon='amenityicon_'.$key;
+                            $fileNameamt = $amnlast_id."_icon.". $request->$amticon->extension();
+                            uploadImage($request, $amticon, $pathamt, $fileNameamt);
+                            $amtstatus = Amenities::find($amnlast_id);
+                            $amtstatus->amenityicon = $fileNameamt;
+                            $amtstatus->save();
+    
+                        }
+                        $pathnew =  Config::get('DocumentConstant.AMENITY_ADD');
+    
+                        if ($request->hasFile('amenityimage_'.$key)) {
+                
+                            if ($aminity->amenityicon+$key) {
+                                $delete_file_eng= storage_path(Config::get('DocumentConstant.AMENITY_DELETE') . $aminity->amenityicon.$key);
+                                if(file_exists($delete_file_eng)){
+                                    unlink($delete_file_eng);
+                                }
+                
+                            }
+                            $amtimg='amenityimage_'.$key;
+                            $amenityImg = $amnlast_id."_image.". $request->$amtimg->extension();
+                            uploadImage($request,$amtimg, $pathnew, $amenityImg);
+                           
+                            $amtstatus = Amenities::find($amnlast_id);
+                            $amtstatus->image = $amenityImg;
+                            $amtstatus->save();
+    
+                        }
+                    }
+                }
+               
+            }
 
             // $features = $request->input('featurename');
             // if(count($features))
