@@ -96,6 +96,8 @@ Route::group(['middleware' => 'admin'], function ()
 	Route::get('/edit_projects/{id}',		 		[ProjectsController::class, 'edit']);
 	Route::post('/update_projects/{id}',		 	[ProjectsController::class, 'update']);
 	Route::get('/delete_projects/{id}',		 		[ProjectsController::class, 'delete']);
+	Route::get('/delete_project_image/{id}',		 		[ProjectsController::class, 'delete_project_image']);
+
 	Route::get('/change_status/{id}',	 	    	[ProjectsController::class, 'change_status']);
 
 	

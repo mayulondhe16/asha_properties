@@ -182,21 +182,17 @@ class ApiController extends Controller
                 $response['amenities'] = $amenities;
 
                 $ftr_data = Features::where('project_id',$value->id)->get();
-                foreach($ftr_data as $amt){
+                foreach($ftr_data as $ftKey){
+                  $ft=[];
+                  $ft['feature'] = $ftKey->feature;
+                  array_push($features,$ft);
 
-                  $features['feature'] = $amt->feature;
-                  $features_images = FeatureImages::where('project_id',$value->id)->get();
-                  foreach ($features_images as $ft)
-                    {
-                        $ft->images =  Config::get('DocumentConstant.FEATURES_VIEW').$ft['images'];
-                    } 
-                  $features['feature_images'] = $features_images;
                 }
                 $response['features'] = $features;
                 array_push($temp, $response); 
 
           }
-          return $this->responseApi($temp, 'All data get successfully', 'scuccess',200);
+          return $this->responseApi($temp, 'All data get successfullyyyy', 'scuccess',200);
       }catch (\Exception $e)
       {
         return $this->responseApi(array(), $e->getMessage(), 'error',500);
@@ -254,15 +250,10 @@ class ApiController extends Controller
                 $response['amenities'] = $amenities;
 
                 $ftr_data = Features::where('project_id',$value->id)->get();
-                foreach($ftr_data as $amt){
-
-                  $features['feature'] = $amt->feature;
-                  $features_images = FeatureImages::where('project_id',$value->id)->get();
-                  foreach ($features_images as $ft)
-                    {
-                        $ft->images =  Config::get('DocumentConstant.FEATURES_VIEW').$ft['images'];
-                    } 
-                  $features['feature_images'] = $features_images;
+                foreach($ftr_data as $ftKey){
+                  $ft=[];
+                  $ft['feature'] = $ftKey->feature;
+                  array_push($features,$ft);
                 }
                 $response['features'] = $features;
                 array_push($temp, $response); 
@@ -326,15 +317,10 @@ class ApiController extends Controller
                 $response['amenities'] = $amenities;
 
                 $ftr_data = Features::where('project_id',$value->id)->get();
-                foreach($ftr_data as $amt){
-
-                  $features['feature'] = $amt->feature;
-                  $features_images = FeatureImages::where('project_id',$value->id)->get();
-                  foreach ($features_images as $ft)
-                    {
-                        $ft->images =  Config::get('DocumentConstant.FEATURES_VIEW').$ft['images'];
-                    } 
-                  $features['feature_images'] = $features_images;
+                foreach($ftr_data as $ftKey){
+                  $ft=[];
+                  $ft['feature'] = $ftKey->feature;
+                  array_push($features,$ft);
                 }
                 $response['features'] = $features;
                 array_push($temp, $response); 

@@ -72,7 +72,7 @@
                   <div class="form-group">
                     <label class="form-label">Details Description</label><span style="color:red;" >*</span>
                       <div class="input-group input-group-outline mb-3">
-                          <textarea  class="form-control" name="description" value="{{ $data['description'] }}" data-parsley-error-message="Please enter valid desciption." required="true"></textarea>
+                          <textarea  class="form-control" name="description" data-parsley-error-message="Please enter valid desciption." required="true">{{$data['description']}}</textarea>
                       </div>
                   </div>
                 </div>
@@ -128,9 +128,7 @@
                      </thead>
                      <tbody>
                        @foreach($amenities as $key=> $amenity)
-                       <?php
-                           $amenity_images = \DB::table('aminity_images')->where('aminity_id','=',$amenity->id)->get();
-                        ?>
+                      
                        <tr>
                          <td>
                              <div class="input-group input-group-outline mb-3">
@@ -155,6 +153,7 @@
                        @endforeach
                      </tbody>
                    </table>
+                   <a class="btn btn-primary" onclick="addRow('0','amenity')" id="addRowid">Add Row</a>
                  </div>
                </div>
  
@@ -183,7 +182,7 @@
                        @endforeach
                       </tbody>
                     </table>
-                    {{-- <a class="btn btn-primary" onclick="addRow('1','feature')">Add Row</a> --}}
+                    <a class="btn btn-primary" onclick="addRow('1','feature')">Add Row</a>
                   </div>
                 </div>
                <div class="bg-gradient-primary shadow-primary border-radius-lg pt-2 pb-2 text-white text-capitalize ps-3" style="width:100%;float:left">
@@ -212,14 +211,6 @@
         </div>
       </div>
 <script>
-// //to get count of rows
-//   var count = 0;
-//   var button = document.getElementById("addRowid");
-//   button.addEventListener("click", function() {
-//       count++;
-//       document.getElementById("count").value=count;
-//   });
-//to add rows in table
   function addRow(id,field)
   {
     const table = document.getElementById('dynamic-table'+id).getElementsByTagName('tbody')[0];
@@ -236,11 +227,11 @@
     if(field=='amenity')
     {
       cell2.innerHTML = '<div class="input-group input-group-outline mb-3"><input type="file"  name="'+field+'icon_'+index+'" accept="image/*"></div>';
-      cell3.innerHTML = '<div class="input-group input-group-outline mb-3"><input type="file"  name="'+field+'images_'+index+'[]" accept="image/*" multiple></div>';
+      cell3.innerHTML = '<div class="input-group input-group-outline mb-3"><input type="file"  name="'+field+'image_'+index+'" accept="image/*"></div>';
       cell4.innerHTML = '<a class="btn btn-danger" onclick="deleteRow(this,'+id+')">Remove</a>';
     }else{
-      cell2.innerHTML = '<div class="input-group input-group-outline mb-3"><input type="file"  name="'+field+'images_'+index+'[]" accept="image/*" multiple></div>';
-      cell3.innerHTML = '<a class="btn btn-danger" onclick="deleteRow(this,'+id+')">Remove</a>';
+      // cell2.innerHTML = '<div class="input-group input-group-outline mb-3"><input type="file"  name="'+field+'images_'+index+'[]" accept="image/*" multiple></div>';
+      cell2.innerHTML = '<a class="btn btn-danger" onclick="deleteRow(this,'+id+')">Remove</a>';
 
     }
   
