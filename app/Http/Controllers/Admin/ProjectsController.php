@@ -321,7 +321,6 @@ class ProjectsController extends Controller
 
     public function update(Request $request,$id)
     {  
-        // dd($request->all());
         $temp=[];
         $new_arr = [];
         $images = $request->file('images');
@@ -366,7 +365,6 @@ class ProjectsController extends Controller
                 if($amt_delete){
                     foreach($amenities as $key=>$value)
                     {
-                        // dd($key);
                         $aminity = new Amenities();
                         $aminity->project_id = $project->id;
                         $aminity->aminity = $value;
@@ -381,14 +379,14 @@ class ProjectsController extends Controller
                 
                         if ($request->hasFile('amenity_icon')) {
                             $icons = $_FILES['amenity_icon'];
-                            $randomString = '';
-                            $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
-                            $charactersLength = strlen($characters);
-                            for ($i = 0; $i < 18; $i++) {
-                                $randomString .= $characters[rand(0, $charactersLength - 1)];
-                            }
+                         
                             for ($i = 0; $i < count($icons['name']); $i++) {
-                                
+                                $randomString = '';
+                                $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+                                $charactersLength = strlen($characters);
+                                for ($j = 0; $j < 18; $j++) {
+                                    $randomString .= $characters[rand(0, $charactersLength - 1)];
+                                }
                                 $fileName = $icons['name'][$i];
                                 $ext                               = pathinfo($fileName,PATHINFO_EXTENSION);
 
@@ -398,44 +396,46 @@ class ProjectsController extends Controller
                         
                                 // Store file in folder
                                 $filePath = $folderPath . $random_file_name;
-                                if(move_uploaded_file($fileTmpName, $filePath)){
+                                if(move_uploaded_file($fileTmpName, $filePath))
+                                {
                                     $amtstatus->amenityicon = $random_file_name;
-                                    $amtstatus->save();
 
                                 }
+                                $amtstatus->save();
+
                             }
+
     
                         }
-                        $pathnew =  Config::get('DocumentConstant.AMENITY_ADD');
-                        $NewfolderPath = str_replace('\\', '/', storage_path()) .$pathnew;
+                        // $pathnew =  Config::get('DocumentConstant.AMENITY_ADD');
+                        // $NewfolderPath = str_replace('\\', '/', storage_path()) .$pathnew;
 
-                        if ($request->hasFile('amenity_image')) {
-                            $amtimg = $_FILES['amenity_image'];
-                            $randomString = '';
-                            $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
-                            $charactersLength = strlen($characters);
-                            for ($i = 0; $i < 18; $i++) {
-                                $randomString .= $characters[rand(0, $charactersLength - 1)];
-                            }
-                            for ($i = 0; $i < count($amtimg['name']); $i++) {
-                                
-                                $amtfileName = $amtimg['name'][$i];
-                                $amtext                               = pathinfo($amtfileName,PATHINFO_EXTENSION);
+                        // if ($request->hasFile('amenity_image')) {
+                        //     $amtimg = $_FILES['amenity_image'];
+                           
+                        //     for ($i = 0; $i < count($amtimg['name']); $i++) {
+                        //         $randomString = '';
+                        //         $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+                        //         $charactersLength = strlen($characters);
+                        //         for ($j = 0; $j < 18; $j++) {
+                        //             $randomString .= $characters[rand(0, $charactersLength - 1)];
+                        //         }
+                        //         $amtfileName = $amtimg['name'][$i];
+                        //         $amtext                               = pathinfo($amtfileName,PATHINFO_EXTENSION);
 
-                                $amtrandom_file_name                  = $randomString.'.'.$amtext;
-                                $fileType = $amtimg['type'][$i];
-                                $amtfileTmpName = $amtimg['tmp_name'][$i];
+                        //         $amtrandom_file_name                  = $randomString.'.'.$amtext;
+                        //         $fileType = $amtimg['type'][$i];
+                        //         $amtfileTmpName = $amtimg['tmp_name'][$i];
                         
-                                // Store file in folder
-                                $filePath = $NewfolderPath . $amtrandom_file_name;
-                                if(move_uploaded_file($amtfileTmpName, $filePath)){
-                                    $amtstatus = Amenities::find($amnlast_id);
-                                        $amtstatus->image = $amtrandom_file_name;
-                                        $amtstatus->save();
-                                }
-                            }
+                        //         $filePath = $NewfolderPath . $amtrandom_file_name;
+                        //         if(move_uploaded_file($amtfileTmpName, $filePath)){
+                        //             $amtstatus = Amenities::find($amnlast_id);
+                        //             $amtstatus->image = $amtrandom_file_name;
+                        //         }
+                        //         $amtstatus->save();
+                        //     }
     
-                        }
+                        // }
 
                         // if ($request->hasFile('amenity_image'.$key)) {
                 
@@ -460,17 +460,17 @@ class ProjectsController extends Controller
                
             }
 
-            // $features = $request->input('featurename');
-            // if(count($features))
-            // {
-            //     foreach($features as $key=>$value)
-            //     {
-            //         $features = new Features();
-            //         $features->project_id = $project->id;
-            //         $features->feature = $value;
-            //         $features_saved = $features->save();
-            //     }
-            // }
+            $features = $request->input('featurename');
+            if(count($features))
+            {
+                foreach($features as $key=>$value)
+                {
+                    $features = new Features();
+                    $features->project_id = $project->id;
+                    $features->feature = $value;
+                    $features_saved = $features->save();
+                }
+            }
            
             
             $path = Config::get('DocumentConstant.MAIN_LAYOUT_ADD');
