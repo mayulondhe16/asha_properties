@@ -321,7 +321,6 @@ class ProjectsController extends Controller
 
     public function update(Request $request,$id)
     {  
-        // dd($request->all());
         $temp=[];
         $new_arr = [];
         $images = $request->file('images');
@@ -338,8 +337,6 @@ class ProjectsController extends Controller
             'address' => 'required',
             'description' => 'required',
             'area' => 'required',
-            'images' => 'required',
-            'image' => 'required',
         ]);
 
         if ($validator->fails()) 
@@ -390,9 +387,14 @@ class ProjectsController extends Controller
                                 }
                                 $amticon='amenityicon_'.$key;
                                 $fileNameamt = $amnlast_id."_icon.". $icon->extension();
+                                $moved = move_uploaded_file($fileNameamt,$pathamt);
+                            
+                                if($moved)
+                                {
+                                    $amtstatus->amenityicon = $fileNameamt;
+                                }
                                 uploadImage($request, $amticon, $pathamt, $fileNameamt);
                                 $amtstatus = Amenities::find($amnlast_id);
-                                $amtstatus->amenityicon = $fileNameamt;
                                 $amtstatus->save();
                             }
                          
@@ -500,7 +502,16 @@ class ProjectsController extends Controller
        
         $project_images = ProjectImages::where('id','=',$id);
         $project_images->delete();
-        return \Redirect::to('manage_projects');
+        return \Redirect::back();
+    }
+
+    public function delete_amenity($id)
+    {
+        $all_data=[];
+       
+        $amt = Amenities::where('id','=',$id);
+        $amt->delete();
+        return \Redirect::back();
     }
 
     public function view($id)

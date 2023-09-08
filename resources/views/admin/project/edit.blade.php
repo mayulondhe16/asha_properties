@@ -48,7 +48,7 @@
                 </div>
                 @endforeach
                 <div class="input-group input-group-outline mb-3">
-                  <input type="file"  name="images[]" accept="image/*" required="true" multiple>
+                  <input type="file"  name="images[]" accept="image/*" @if(count($images)<0) required="true" @endif multiple>
                 </div>
               </div>
               <div class="row">
@@ -124,6 +124,7 @@
                          <th>Amenity</th>
                          <th>Icon</th>
                          <th>Amenity Images</th>
+                         <th>Action</th>
                        </tr>
                      </thead>
                      <tbody>
@@ -148,7 +149,8 @@
                            <img src="{{ Config::get('DocumentConstant.AMENITY_VIEW') }}{{ $amenity->image }}" height="40px" width="50px"> 
                             <input type="file"  name="amenity_image[]" accept="image/*" value="{{ $amenity->image }}">
                           </td>
-                       
+                          <td><a href="{{url('/')}}/delete_amenity/{{ $amenity->id }}" title="Delete" onclick="return confirm('Are you sure you want to delete this record?');">
+                            <i class="fa fa-trash"></i></a></td>
                        </tr>
                        @endforeach
                      </tbody>
@@ -196,7 +198,7 @@
                               <img id="output_image1" height="200px" width="300px" src="{{ Config::get('DocumentConstant.MAIN_LAYOUT_VIEW') }}{{ $data['main_layout_image'] }}" />
                             </p>
                             <div class="input-group input-group-outline mb-3">
-                            <input type="file" id="image" name="image" accept="image/*" required="true">
+                            <input type="file" id="image" name="image" accept="image/*" @if(!@isset($data['main_layout_image'])) required="true" @endif>
                         </div>
                     </div>
                 </div>
