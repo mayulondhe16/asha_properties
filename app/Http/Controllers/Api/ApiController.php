@@ -137,11 +137,13 @@ class ApiController extends Controller
       {
           $temp                      = [];
           $amenities = [];
-          $features = [];
+          $response = [];
+
           $projectData = Projects::get();
           foreach($projectData as $key=>$value)
           {
-            $response = [];
+            $features = [];
+
             $response['project_id'] = $value->id;
                 $response['name'] = $value->name;
                 $response['address'] = $value->address;
@@ -205,11 +207,12 @@ class ApiController extends Controller
       {
           $temp                      = [];
           $amenities = [];
-          $features = [];
+          $response = [];
           $projectData = Projects::where('projects.status','1')->get();
           foreach($projectData as $key=>$value)
           {
-              $response = [];
+            $features = [];
+
                 $response['project_id'] = $value->id;
                 $response['name'] = $value->name;
                 $response['address'] = $value->address;
@@ -272,11 +275,13 @@ class ApiController extends Controller
       {
           $temp                      = [];
           $amenities = [];
-          $features = [];
+          $response = [];
+
           $projectData = Projects::where('projects.status','0')->get();
           foreach($projectData as $key=>$value)
           {
-            $response = [];
+            $features = [];
+
                 $response['project_id'] = $value->id;
                 $response['name'] = $value->name;
                 $response['address'] = $value->address;

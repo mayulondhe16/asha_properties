@@ -321,7 +321,7 @@ class ProjectsController extends Controller
 
     public function update(Request $request,$id)
     {  
-        dd($request->all());
+        // dd($request->all());
         $temp=[];
         $new_arr = [];
         $images = $request->file('images');
@@ -378,21 +378,24 @@ class ProjectsController extends Controller
                         $amnlast_id = $aminity->id;
                         $pathamt = Config::get('DocumentConstant.AMENITYICON_ADD');
                 
-                        if ($request->hasFile('amenityicon_'.$key)) {
-                
-                            if ($aminity->amenityicon+$key) {
-                                $delete_file_eng= storage_path(Config::get('DocumentConstant.AMENITYICON_DELETE') . $aminity->amenityicon.$key);
-                                if(file_exists($delete_file_eng)){
-                                    unlink($delete_file_eng);
+                        if ($request->hasFile('amenity_icon')) {
+                            $icons = $request->amenity_icon;
+                            foreach($icons as $icon){
+                                if ($aminity->amenityicon+$key) {
+                                    $delete_file_eng= storage_path(Config::get('DocumentConstant.AMENITYICON_DELETE') . $aminity->amenityicon.$key);
+                                    if(file_exists($delete_file_eng)){
+                                        unlink($delete_file_eng);
+                                    }
+                    
                                 }
-                
+                                $amticon='amenityicon_'.$key;
+                                $fileNameamt = $amnlast_id."_icon.". $icon->extension();
+                                uploadImage($request, $amticon, $pathamt, $fileNameamt);
+                                $amtstatus = Amenities::find($amnlast_id);
+                                $amtstatus->amenityicon = $fileNameamt;
+                                $amtstatus->save();
                             }
-                            $amticon='amenityicon_'.$key;
-                            $fileNameamt = $amnlast_id."_icon.". $request->$amticon->extension();
-                            uploadImage($request, $amticon, $pathamt, $fileNameamt);
-                            $amtstatus = Amenities::find($amnlast_id);
-                            $amtstatus->amenityicon = $fileNameamt;
-                            $amtstatus->save();
+                         
     
                         }
                         $pathnew =  Config::get('DocumentConstant.AMENITY_ADD');
