@@ -321,6 +321,7 @@ class ProjectsController extends Controller
 
     public function update(Request $request,$id)
     {  
+        // dd($request->all());
         $temp=[];
         $new_arr = [];
         $images = $request->file('images');
@@ -374,52 +375,86 @@ class ProjectsController extends Controller
     
                         $amnlast_id = $aminity->id;
                         $pathamt = Config::get('DocumentConstant.AMENITYICON_ADD');
+                        $folderPath = str_replace('\\', '/', storage_path()) .$pathamt;
+                        $amtstatus = Amenities::find($amnlast_id);
+
                 
                         if ($request->hasFile('amenity_icon')) {
-                            $icons = $request->amenity_icon;
-                            foreach($icons as $icon){
-                                if ($aminity->amenityicon+$key) {
-                                    $delete_file_eng= storage_path(Config::get('DocumentConstant.AMENITYICON_DELETE') . $aminity->amenityicon.$key);
-                                    if(file_exists($delete_file_eng)){
-                                        unlink($delete_file_eng);
-                                    }
-                    
-                                }
-                                $amticon='amenityicon_'.$key;
-                                $fileNameamt = $amnlast_id."_icon.". $icon->extension();
-                                $moved = move_uploaded_file($fileNameamt,$pathamt);
-                            
-                                if($moved)
-                                {
-                                    $amtstatus->amenityicon = $fileNameamt;
-                                }
-                                uploadImage($request, $amticon, $pathamt, $fileNameamt);
-                                $amtstatus = Amenities::find($amnlast_id);
-                                $amtstatus->save();
+                            $icons = $_FILES['amenity_icon'];
+                            $randomString = '';
+                            $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+                            $charactersLength = strlen($characters);
+                            for ($i = 0; $i < 18; $i++) {
+                                $randomString .= $characters[rand(0, $charactersLength - 1)];
                             }
-                         
+                            for ($i = 0; $i < count($icons['name']); $i++) {
+                                
+                                $fileName = $icons['name'][$i];
+                                $ext                               = pathinfo($fileName,PATHINFO_EXTENSION);
+
+                                $random_file_name                  = $randomString.'.'.$ext;
+                                $fileType = $icons['type'][$i];
+                                $fileTmpName = $icons['tmp_name'][$i];
+                        
+                                // Store file in folder
+                                $filePath = $folderPath . $random_file_name;
+                                if(move_uploaded_file($fileTmpName, $filePath)){
+                                    $amtstatus->amenityicon = $random_file_name;
+                                    $amtstatus->save();
+
+                                }
+                            }
     
                         }
                         $pathnew =  Config::get('DocumentConstant.AMENITY_ADD');
-    
-                        if ($request->hasFile('amenityimage_'.$key)) {
-                
-                            if ($aminity->amenityicon+$key) {
-                                $delete_file_eng= storage_path(Config::get('DocumentConstant.AMENITY_DELETE') . $aminity->amenityicon.$key);
-                                if(file_exists($delete_file_eng)){
-                                    unlink($delete_file_eng);
-                                }
-                
+                        $NewfolderPath = str_replace('\\', '/', storage_path()) .$pathnew;
+
+                        if ($request->hasFile('amenity_image')) {
+                            $amtimg = $_FILES['amenity_image'];
+                            $randomString = '';
+                            $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+                            $charactersLength = strlen($characters);
+                            for ($i = 0; $i < 18; $i++) {
+                                $randomString .= $characters[rand(0, $charactersLength - 1)];
                             }
-                            $amtimg='amenityimage_'.$key;
-                            $amenityImg = $amnlast_id."_image.". $request->$amtimg->extension();
-                            uploadImage($request,$amtimg, $pathnew, $amenityImg);
-                           
-                            $amtstatus = Amenities::find($amnlast_id);
-                            $amtstatus->image = $amenityImg;
-                            $amtstatus->save();
+                            for ($i = 0; $i < count($amtimg['name']); $i++) {
+                                
+                                $amtfileName = $amtimg['name'][$i];
+                                $amtext                               = pathinfo($amtfileName,PATHINFO_EXTENSION);
+
+                                $amtrandom_file_name                  = $randomString.'.'.$amtext;
+                                $fileType = $amtimg['type'][$i];
+                                $amtfileTmpName = $amtimg['tmp_name'][$i];
+                        
+                                // Store file in folder
+                                $filePath = $NewfolderPath . $amtrandom_file_name;
+                                if(move_uploaded_file($amtfileTmpName, $filePath)){
+                                    $amtstatus = Amenities::find($amnlast_id);
+                                        $amtstatus->image = $amtrandom_file_name;
+                                        $amtstatus->save();
+                                }
+                            }
     
                         }
+
+                        // if ($request->hasFile('amenity_image'.$key)) {
+                
+                        //     if ($aminity->amenityicon+$key) {
+                        //         $delete_file_eng= storage_path(Config::get('DocumentConstant.AMENITY_DELETE') . $aminity->amenityicon.$key);
+                        //         if(file_exists($delete_file_eng)){
+                        //             unlink($delete_file_eng);
+                        //         }
+                
+                        //     }
+                        //     $amtimg='amenityimage_'.$key;
+                        //     $amenityImg = $amnlast_id."_image.". $request->$amtimg->extension();
+                        //     uploadImage($request,$amtimg, $pathnew, $amenityImg);
+                           
+                        //     $amtstatus = Amenities::find($amnlast_id);
+                        //     $amtstatus->image = $amenityImg;
+                        //     $amtstatus->save();
+    
+                        // }
                     }
                 }
                
