@@ -321,6 +321,7 @@ class ProjectsController extends Controller
 
     public function update(Request $request,$id)
     {  
+        // dd($request->all());
         $temp=[];
         $new_arr = [];
         $images = $request->file('images');
@@ -460,7 +461,9 @@ class ProjectsController extends Controller
                
             }
 
-            $features = $request->input('featurename');
+            $features = $request->input('feature_name');
+            $amt_delete = Features::where('project_id',$id);
+                $amt_delete->delete();
             if(count($features))
             {
                 foreach($features as $key=>$value)
