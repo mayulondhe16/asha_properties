@@ -182,7 +182,7 @@
                        <tr>
                          <td>
                            <div class="input-group input-group-outline mb-3">
-                           <input type="text" class="form-control" value="{{$feature->feature}}" name="feature_name[]">
+                           <input type="text" class="form-control" value="{{$feature->feature}}" name="featurename[]">
                            </div>
                          </td>
                          <td><a class="btn btn-danger" href="{{url('/')}}/delete_feature/{{ $feature->id }}" title="Delete" onclick="return confirm('Are you sure you want to delete this record?');">
