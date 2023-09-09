@@ -418,9 +418,8 @@ class ProjectsController extends Controller
                                 ];
                                 Amenities::where('id', $amenity_id[$i])->update($data);
                             }
-                            if($iconshidden[$i]!='')
+                            elseif($iconshidden[$i]!='')
                             {  
-
                                 $particonhidden = explode('\\', $iconshidden[$i]); 
                                 $img_name = end($particonhidden);
                                 //update amenity icon
@@ -451,7 +450,6 @@ class ProjectsController extends Controller
                                 Amenities::where('id', $amenity_id[$i])->update($data);
                             }
                             elseif($imghidden[$i]!=''){
-
                                 //update amenity images
                                 $pathnew =  Config::get('DocumentConstant.AMENITY_ADD');
                                 $NewfolderPath = str_replace('\\', '/', storage_path()) .$pathnew;
@@ -486,8 +484,6 @@ class ProjectsController extends Controller
                                 ];
                             Amenities::where('id', $amenity_id[$i])->update($data);
                             }
-                         
-
                         }else{
                             //update amenity icon
                             $randomString = '';
