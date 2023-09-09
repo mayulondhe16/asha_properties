@@ -139,18 +139,22 @@
                          <td>
                              <p>
                               <img src="{{ Config::get('DocumentConstant.AMENITYICON_VIEW') }}{{ $amenity->amenityicon }}" height="40px" width="70px">
-                              <input type="file"  name="amenity_icon[]" value="{{ $amenity->amenityicon }}" accept="image/*">
+                              <input type="file"  name="amenity_icon[]" accept="image/*" onchange='getFilename(this,{{ $amenity->id }})'>
                               <input type="hidden" value="{{$amenity->id}}" name="amenity_id[]">
+                              <input type="hidden" id="amenity_icon_hidden{{$amenity->id}}" value="" name="amenity_icon_hidden[]">
+
                             </p>
                           
                        </td>
                      
                          <td>
                            <img src="{{ Config::get('DocumentConstant.AMENITY_VIEW') }}{{ $amenity->image }}" height="40px" width="50px"> 
-                            <input type="file"  name="amenity_image[]" accept="image/*" value="{{ $amenity->image }}">
+                            <input type="file"  name="amenity_image[]" accept="image/*" onchange='geImgname(this,{{ $amenity->id }})'>
+                            <input type="hidden" value="" id="amenity_image_hidden{{$amenity->id }}" value="" name="amenity_image_hidden[]">
+
                           </td>
-                          <td><a href="{{url('/')}}/delete_amenity/{{ $amenity->id }}" title="Delete" onclick="return confirm('Are you sure you want to delete this record?');">
-                            <i class="fa fa-trash"></i></a></td>
+                          <td><a class="btn btn-danger" href="{{url('/')}}/delete_amenity/{{ $amenity->id }}" title="Delete" onclick="return confirm('Are you sure you want to delete this record?');">
+                            Remove</a></td>
                        </tr>
                        @endforeach
                      </tbody>
@@ -180,6 +184,9 @@
                            <div class="input-group input-group-outline mb-3">
                            <input type="text" class="form-control" value="{{$feature->feature}}" name="feature_name[]">
                            </div>
+                         </td>
+                         <td><a class="btn btn-danger" href="{{url('/')}}/delete_feature/{{ $feature->id }}" title="Delete" onclick="return confirm('Are you sure you want to delete this record?');">
+                          Remove</a></td>
                        </tr>
                        @endforeach
                       </tbody>
@@ -213,6 +220,16 @@
         </div>
       </div>
 <script>
+  function getFilename(elm,id){
+    var fn = $(elm).val();
+    $('#amenity_icon_hidden'+id).val(fn);
+  }
+
+  function geImgname(elm,id){
+    var fn = $(elm).val();
+    $('#amenity_image_hidden'+id).val(fn);
+  }
+  
   function addRow(id,field)
   {
     const table = document.getElementById('dynamic-table'+id).getElementsByTagName('tbody')[0];
@@ -228,8 +245,8 @@
     cell1.innerHTML = '<div class="input-group input-group-outline mb-3"><input type="text" placeholder="Enter Value" name="'+field+'name[]" class="form-control"></div>';
     if(field=='amenity')
     {
-      cell2.innerHTML = '<div class="input-group input-group-outline mb-3"><input type="file"  name="'+field+'icon_'+index+'" accept="image/*"></div>';
-      cell3.innerHTML = '<div class="input-group input-group-outline mb-3"><input type="file"  name="'+field+'image_'+index+'" accept="image/*"></div>';
+      cell2.innerHTML = '<div class="input-group input-group-outline mb-3"><input type="file"  name="'+field+'_icon[]" accept="image/*"></div>';
+      cell3.innerHTML = '<div class="input-group input-group-outline mb-3"><input type="file"  name="'+field+'_image[]" accept="image/*"></div>';
       cell4.innerHTML = '<a class="btn btn-danger" onclick="deleteRow(this,'+id+')">Remove</a>';
     }else{
       // cell2.innerHTML = '<div class="input-group input-group-outline mb-3"><input type="file"  name="'+field+'images_'+index+'[]" accept="image/*" multiple></div>';
@@ -251,4 +268,5 @@
     }
   }
 </script>
+
 @endsection

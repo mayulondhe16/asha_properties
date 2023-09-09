@@ -117,7 +117,9 @@ Route::group(['middleware' => 'admin'], function ()
 	Route::get('/manage_getintouch',		 			[NewsletterController::class, 'manage_getintouch']);
 	Route::get('/delete_getintouch/{id}',		 			[NewsletterController::class, 'delete_getintouch']);
 	Route::get('/delete_amenity/{id}',		 			[ProjectsController::class, 'delete_amenity']);
+	Route::get('/delete_feature/{id}',		 			[ProjectsController::class, 'delete_feature']);
 
+	
 	
 });
 Route::get('/foo', function () {
