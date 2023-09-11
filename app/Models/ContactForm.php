@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ContactForm extends Model
 {
-    //
     use SoftDeletes;
     protected $table = 'contactform';
 }

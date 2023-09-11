@@ -57,9 +57,9 @@
                     <div class="row">
                         <div class="col-md-8">
                             <div class="form-group">
-                              <label class="form-label">Description</label><span style="color:red;" >*</span>
+                              <label class="form-label">Description</label>
                                 <div class="input-group input-group-outline mb-3">
-                                    <textarea  class="form-control" name="description"  data-parsley-error-message="Please enter valid category description." required="true"></textarea>
+                                    <textarea  class="form-control" name="description"  data-parsley-error-message="Please enter valid category description."></textarea>
                                   </div>
                             </div>
                         </div>
