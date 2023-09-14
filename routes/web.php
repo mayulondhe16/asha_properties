@@ -14,6 +14,9 @@ use App\Http\Controllers\Admin\AminitiesController;
 use App\Http\Controllers\Admin\CompanyContactController;
 use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\CountController;
+use App\Http\Controllers\Admin\ProfileController;
+
+
 
 /*
 |--------------------------------------------------------------------------

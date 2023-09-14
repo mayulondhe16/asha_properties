@@ -41,7 +41,7 @@ class ReviewController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'image' => 'required',
+            // 'image' => 'required',
         ]);
 
         if ($validator->fails()) 
@@ -54,25 +54,25 @@ class ReviewController extends Controller
         $propertyType->reviewer_name = $request->reviewer_name;
         $status = $propertyType->save();
         $last_id = $propertyType->id;
-        $path = Config::get('DocumentConstant.REVIEW_ADD');
+        // $path = Config::get('DocumentConstant.REVIEW_ADD');
 
-        if ($request->hasFile('image')) {
+        // if ($request->hasFile('image')) {
 
-            if ($propertyType->image) {
-                $delete_file_eng= storage_path(Config::get('DocumentConstant.REVIEW_DELETE') . $propertyType->image);
-                if(file_exists($delete_file_eng)){
-                    unlink($delete_file_eng);
-                }
+        //     if ($propertyType->image) {
+        //         $delete_file_eng= storage_path(Config::get('DocumentConstant.REVIEW_DELETE') . $propertyType->image);
+        //         if(file_exists($delete_file_eng)){
+        //             unlink($delete_file_eng);
+        //         }
 
-            }
+        //     }
 
-            $fileName = $last_id.".". $request->image->extension();
-            uploadImage($request, 'image', $path, $fileName);
+        //     $fileName = $last_id.".". $request->image->extension();
+        //     uploadImage($request, 'image', $path, $fileName);
            
-            $brand = Review::find($last_id);
-            $brand->image = $fileName;
-            $brand->save();
-        }
+        //     $brand = Review::find($last_id);
+        //     $brand->image = $fileName;
+        //     $brand->save();
+        // }
         if (!empty($status))
         {
             Session::flash('success', 'Success! Record added successfully.');
@@ -105,29 +105,29 @@ class ReviewController extends Controller
         $arr_data               = [];
         $Review = Review::find($id);
         $path = Config::get('DocumentConstant.REVIEW_ADD');
-        if ($request->hasFile('image'))
-        {
-            if ($Review->image)
-            {
-                $delete_file_eng= storage_path(Config::get('DocumentConstant.REVIEW_DELETE') . $Review->image);
-                if(file_exists($delete_file_eng))
-                {
-                    unlink($delete_file_eng);
-                }
+        // if ($request->hasFile('image'))
+        // {
+        //     if ($Review->image)
+        //     {
+        //         $delete_file_eng= storage_path(Config::get('DocumentConstant.REVIEW_DELETE') . $Review->image);
+        //         if(file_exists($delete_file_eng))
+        //         {
+        //             unlink($delete_file_eng);
+        //         }
 
-            }
-            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            $randomString = '';
+        //     }
+        //     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        //     $randomString = '';
         
-            for ($i = 0; $i < 10; $i++) {
-                $index = rand(0, strlen($characters) - 1);
-                $randomString .= $characters[$index];
-            }
-            $fileName = $randomString.".". $request->image->extension();
-            uploadImage($request, 'image', $path, $fileName);
-            $Review->image = $fileName;
+        //     for ($i = 0; $i < 10; $i++) {
+        //         $index = rand(0, strlen($characters) - 1);
+        //         $randomString .= $characters[$index];
+        //     }
+        //     $fileName = $randomString.".". $request->image->extension();
+        //     uploadImage($request, 'image', $path, $fileName);
+        //     $Review->image = $fileName;
 
-        }
+        // }
         $Review->title = $title;
         $Review->description = $description;
         $Review->reviewer_name = $request->reviewer_name;

@@ -30,16 +30,7 @@
             <div class="card-body">
               <form action="{{ url('/')}}/view_{{$url_slug}}/{{$data['id']}}" method="post" role="form" data-parsley-validate="parsley" enctype="multipart/form-data" autocomplete="off">
                 {!! csrf_field() !!}    
-                <div class="row">
-                        <div class="col-md-8">
-                            <div class="form-group">
-                                <label for="oldpassword">Image<span style="color:red;" >*</span></label>
-                                   <p>
-                                    <img src="{{ Config::get('DocumentConstant.REVIEW_VIEW') }}{{ $data['image'] }}" height="200px" width="300px"> 
-                                  </p>
-                            </div>
-                        </div>
-                    </div>
+               
                     <div class="row">
                         <div class="col-md-8">
                             <div class="form-group">

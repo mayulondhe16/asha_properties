@@ -39,7 +39,6 @@
                   <thead>
                     <tr>
                       <th>Sr No</th>
-                      <th>Image</th>
                       <th>Title </th>
                       <th>Description</th>
                       <th>Reviewer Name</th>
@@ -52,9 +51,7 @@
                         <td>
                           {{$key+1}}
                         </td>
-                        <td>
-                          <img src="{{ Config::get('DocumentConstant.REVIEW_VIEW') }}{{ $value->image }}" height="50px" width="60px">
-                        </td>
+                     
                         <td>
                           {{$value->title}}
                         </td>
