@@ -88,39 +88,6 @@ class ProjectsController extends Controller
         $existingRecord = subLayoutimages::orderBy('id','DESC')->first();
         $recordId = $existingRecord ? $existingRecord->id + 1 : 1;
       
-        // if($images){
-        //     foreach ($images as $image)
-        //     {
-        //         $subLayoutimages =  new SubLayoutImages();
-
-        //         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        //         $charactersLength = strlen($characters);
-        //         $randomString = '';
-        //         for ($i_ = 0; $i_ < 20; $i_++) {
-        //             $randomString .= $characters[rand(0, $charactersLength - 1)];
-        //         }
-
-        //         $imageName = $image->getClientOriginalName();
-        //         $ext = $image->getClientOriginalExtension();
-        //         $random_file_name                  = $randomString.'.'.$ext;
-        //         $latest_image                      = '/sublayout_images/'.$random_file_name;
-        //         $filename                          = basename($imageName,'.'.$ext);
-        //         $newFileName                       = $filename.time().".".$ext; 
-               
-                
-        //         if(Storage::put('all_project_data'.$latest_image, File::get($image)))
-        //         {
-        //             $subLayoutimages->project_id = $request->input('project_id');
-        //             $subLayoutimages->layout_id = $request->input('layout_id');
-        //             $subLayoutimages->images = $latest_image;
-        //             $projectstatus = $subLayoutimages->save();
-        //         }
-             
-        //     }
-        //     Session::flash('success', 'Success! Record added successfully.');
-        //     return \Redirect::to('manage_layouts');
-        // }
-
             if($images)
             {
                 foreach ($images as $key=> $image)
@@ -186,6 +153,7 @@ class ProjectsController extends Controller
         $project->plot_area = $request->plot_area;
         $project->available_plot = $request->available_plot;
         $project->map_link = $request->map_link;
+        $project->video_link = $request->video_link;
       
         $status = $project->save();
         $last_id = $project->id;
@@ -352,6 +320,8 @@ class ProjectsController extends Controller
         $project->plot_area = $request->plot_area;
         $project->available_plot = $request->available_plot;
         $project->map_link = $request->map_link;
+        $project->video_link = $request->video_link;
+
       
         $status = $project->save();
         $last_id = $project->id;

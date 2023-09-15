@@ -112,6 +112,14 @@
                       </div>
                   </div>
                 </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="form-label">Video Link</label><span style="color:red;" >*</span>
+                      <div class="input-group input-group-outline mb-3">
+                        <input type="text" class="form-control" name="video_link" value="{{ $data['video_link'] }}"  data-parsley-error-message="Please enter valid link." data-parsley-pattern="^((http|https):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$" required="true">
+                      </div>
+                  </div>
+                </div>
               </div>
               <div class="bg-gradient-primary shadow-primary border-radius-lg pt-2 pb-2 text-white text-capitalize ps-3" style="width:100%;float:left">
                 Amenities
