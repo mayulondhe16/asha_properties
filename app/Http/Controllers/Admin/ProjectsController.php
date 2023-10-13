@@ -153,7 +153,7 @@ class ProjectsController extends Controller
         $project->plot_area = $request->plot_area;
         $project->available_plot = $request->available_plot;
         $project->map_link = $request->map_link;
-        $project->video_link = $request->video_link;
+        $project->video_link = '$request->video_link';
       
         $status = $project->save();
         $last_id = $project->id;
@@ -320,7 +320,7 @@ class ProjectsController extends Controller
         $project->plot_area = $request->plot_area;
         $project->available_plot = $request->available_plot;
         $project->map_link = $request->map_link;
-        $project->video_link = $request->video_link;
+        $project->video_link = '$request->video_link';
 
       
         $status = $project->save();
